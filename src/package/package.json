@@ -1,0 +1,78 @@
+{
+  "name": "react-mockframe",
+  "version": "1.0.1",
+  "author": {
+    "name": "Mohammed Banani",
+    "url": "https://github.com/mbdev3"
+  },
+  "description": "Device mockups for React. Showcase your apps in realistic phone, tablet, and laptop frames.",
+  "keywords": [
+    "react",
+    "device",
+    "mockframe",
+    "mockup",
+    "phone",
+    "tablet",
+    "laptop",
+    "iphone",
+    "ipad",
+    "macbook",
+    "pixel",
+    "galaxy",
+    "simulator",
+    "emulator",
+    "frame",
+    "screenshot",
+    "component",
+    "typescript"
+  ],
+  "homepage": "https://mockframe.thembdev.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mbdev3/react-mockframe"
+  },
+  "bugs": {
+    "url": "https://github.com/mbdev3/react-mockframe/issues"
+  },
+  "license": "MIT",
+  "sideEffects": [
+    "dist/styles/*.css"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    },
+    "./styles/mockframe.css": "./dist/styles/mockframe.min.css",
+    "./styles/mockframe-iphones.css": "./dist/styles/mockframe-iphones.min.css",
+    "./styles/mockframe-android.css": "./dist/styles/mockframe-android.min.css",
+    "./styles/mockframe-tablets.css": "./dist/styles/mockframe-tablets.min.css",
+    "./styles/mockframe-laptops.css": "./dist/styles/mockframe-laptops.min.css",
+    "./package.json": "./package.json",
+    "./*": "./dist/*"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:ts dev:css",
+    "dev:ts": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "dev:css": "node scripts/watch-css.js",
+    "build": "pnpm build:ts && pnpm build:css && node scripts/gen-readme.js",
+    "build:ts": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "build:css": "node scripts/build-css.js && node scripts/build-css-modules.js"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "chokidar": "^4.0.3",
+    "lightningcss": "^1.28.2",
+    "tsup": "^8.3.5"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0"
+  }
+}

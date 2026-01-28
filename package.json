@@ -1,0 +1,45 @@
+{
+  "name": "react-mockframe-monorepo",
+  "author": {
+    "name": "Mohammed Banani",
+    "url": "https://github.com/mbdev3"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mbdev3/react-mockframe"
+  },
+  "bugs": {
+    "url": "https://github.com/mbdev3/react-mockframe/issues"
+  },
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:lib dev:site",
+    "dev:lib": "pnpm --filter react-mockframe dev",
+    "dev:site": "pnpm --filter react-mockframe-example dev",
+    "build": "pnpm build:lib && pnpm build:site",
+    "build:lib": "pnpm --filter react-mockframe build",
+    "build:site": "pnpm --filter react-mockframe-example build",
+    "preview": "pnpm --filter react-mockframe-example preview",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-mockframe": "workspace:*",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/node": "^22.10.5",
+    "@typescript-eslint/eslint-plugin": "^8.19.1",
+    "@typescript-eslint/parser": "^8.19.1",
+    "eslint": "^9.17.0",
+    "eslint-plugin-react": "^7.37.3",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
