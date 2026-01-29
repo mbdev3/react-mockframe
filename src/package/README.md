@@ -6,8 +6,8 @@ Device mockups for React. Showcase your apps in realistic phone, tablet, and lap
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg)](http://typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/mbdev3/react-mockframe/master/assets/demo.gif" alt="MockFrame Demo" width="600" />
+<p >
+  <img src="https://raw.githubusercontent.com/mbdev3/react-mockframe/master/assets/demo.gif" alt="MockFrame Demo" width="300" />
 </p>
 
 ## Features
