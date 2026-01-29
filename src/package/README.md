@@ -6,6 +6,10 @@ Device mockups for React. Showcase your apps in realistic phone, tablet, and lap
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg)](http://typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mbdev3/react-mockframe/master/assets/demo.gif" alt="MockFrame Demo" width="600" />
+</p>
+
 ## Features
 
 - **10 Modern Devices** - iPhone 8/8 Plus, iPhone X, iPhone 17, Pixel 10, Galaxy S25, iPad Mini, iPad Pro, MacBook Pro 2020, MacBook Pro
