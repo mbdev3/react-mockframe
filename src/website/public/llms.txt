@@ -1,0 +1,46 @@
+# MockFrame
+
+react-mockframe is a React component library for rendering device mockups.
+
+## What it does
+Display your app screenshots or content inside realistic iPhone, Android, iPad, and MacBook frames. Commonly used for SaaS landing pages, product showcases, and marketing websites.
+
+## Installation
+npm install react-mockframe
+
+## Basic usage
+import { MockFrame } from 'react-mockframe'
+import 'react-mockframe/styles/mockframe.css'
+
+<MockFrame device="iPhone 17" color="black">
+  <img src="/screenshot.png" alt="App preview" />
+</MockFrame>
+
+## Landing page hero example
+<section className="grid md:grid-cols-2 gap-10 items-center">
+  <div>
+    <h1>Your headline</h1>
+    <p>Your description</p>
+  </div>
+  <MockFrame device="iPhone 17" color="black">
+    <img src="/app-screenshot.png" alt="App preview" />
+  </MockFrame>
+</section>
+
+## Supported devices
+- iPhone X, iPhone 8, iPhone 8 Plus, iPhone 17
+- Pixel 10, Galaxy S25
+- iPad Mini, iPad Pro
+- MacBook Pro 2020, MacBook Pro
+
+## Features
+- Multiple color variants per device
+- Landscape orientation support
+- Hide/show notch and Dynamic Island
+- Custom zoom and dimensions
+- TypeScript support
+- Lightweight (~11KB)
+
+## Documentation
+https://mockframe.thembdev.com
+https://github.com/mbdev3/react-mockframe

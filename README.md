@@ -1,6 +1,6 @@
 # MockFrame
 
-Device mockups for React. Showcase your apps in realistic phone, tablet, and laptop frames.
+Device mockups for React. Showcase your apps in realistic phone, tablet, and laptop frames. Perfect for SaaS landing pages, product demos, and marketing websites.
 
 [![npm version](https://img.shields.io/npm/v/react-mockframe.svg)](https://www.npmjs.com/package/react-mockframe)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg)](http://typescriptlang.org/)
@@ -132,6 +132,36 @@ export default function App() {
 >
   <YourApp />
 </MockFrame>
+```
+
+### Landing Page Hero
+
+```tsx
+<section className="grid md:grid-cols-2 gap-10 items-center px-6 py-20">
+  <div>
+    <h1 className="text-4xl font-bold mb-4">Your product headline</h1>
+    <p className="text-lg text-gray-600 mb-6">
+      Describe your product value proposition here.
+    </p>
+    <button className="bg-blue-600 text-white px-6 py-3 rounded-lg">
+      Get Started
+    </button>
+  </div>
+
+  <MockFrame device="iPhone 17" color="black">
+    <img src="/app-screenshot.png" alt="App preview" />
+  </MockFrame>
+</section>
+```
+
+### Dashboard Showcase
+
+```tsx
+<div className="flex justify-center py-16">
+  <MockFrame device="MacBook Pro" color="space-gray">
+    <img src="/dashboard-screenshot.png" alt="Dashboard preview" />
+  </MockFrame>
+</div>
 ```
 
 ## Props

@@ -5,7 +5,7 @@
     "name": "Mohammed Banani",
     "url": "https://github.com/mbdev3"
   },
-  "description": "Device mockups for React. Showcase your apps in realistic phone, tablet, and laptop frames.",
+  "description": "React device mockup components for landing pages and product showcases. Display your app in iPhone, Android, iPad, and MacBook frames.",
   "keywords": [
     "react",
     "device",
@@ -19,12 +19,18 @@
     "macbook",
     "pixel",
     "galaxy",
-    "simulator",
-    "emulator",
     "frame",
     "screenshot",
     "component",
-    "typescript"
+    "typescript",
+    "landing-page",
+    "saas",
+    "product-showcase",
+    "marketing",
+    "hero-section",
+    "app-preview",
+    "ui-showcase",
+    "device-frame"
   ],
   "homepage": "https://mockframe.thembdev.com",
   "repository": {
