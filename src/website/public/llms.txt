@@ -42,5 +42,5 @@ import 'react-mockframe/styles/mockframe.css'
 - Lightweight (~11KB)
 
 ## Documentation
-https://mockframe.thembdev.com
+https://mockframe.matterdevelopment.com
 https://github.com/mbdev3/react-mockframe

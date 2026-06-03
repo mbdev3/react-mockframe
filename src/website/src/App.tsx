@@ -133,7 +133,7 @@ export default function App() {
         <p>
           Developed by{' '}
           <a
-            href="https://thembdev.com"
+            href="https://mohammedbanani.com"
             target="_blank"
             rel="noopener noreferrer"
             style={{ color: 'var(--color-accent)' }}
