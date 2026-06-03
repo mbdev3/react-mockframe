@@ -324,9 +324,9 @@ The interactive demo website includes:
 - Safari 15+
 - Edge 95+
 
-## License
+## Credits
 
-MIT License - see [LICENSE](./LICENSE) for details.
+Device frame styles are adapted from [Marvel devices.css](https://github.com/marvelapp/devices.css) (MIT © 2014 Marvelapp). Newer device frames (iPhone 17, Pixel 10, Galaxy S25, iPad Pro, MacBook Pro) and all React/TypeScript code are original to this project.
 
 ## Author
 
