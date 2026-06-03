@@ -307,6 +307,7 @@ export const CustomMockFrame = React.memo<CustomMockFrameProps>(
     landscape,
     frameClassName,
     screenClassName,
+    className,
     style: styleProp,
     ...restProps
   }) {
@@ -368,7 +369,7 @@ export const CustomMockFrame = React.memo<CustomMockFrameProps>(
     )
 
     return (
-      <div className={frameClassName} style={frameStyle} {...restProps}>
+      <div className={cx(frameClassName, className)} style={frameStyle} {...restProps}>
         <div className={screenClassName} style={screenStyle}>
           {children}
         </div>
@@ -417,7 +418,10 @@ export const CustomMockFrame = React.memo<CustomMockFrameProps>(
  * @see {@link DeviceOptions} for available devices and their configurations
  */
 export const MockFrame = React.memo<MockFrameProps>(function MockFrame(props) {
-  const { children, device, width, height, zoom, animated, hideNotch, ...restProps } = props
+  const {
+    children, device, width, height, zoom, animated, hideNotch,
+    className: userClassName, style: userStyle, ...restProps
+  } = props
 
   // Extract device-specific props that shouldn't be passed to DOM
   const divProps = omit(restProps, ['landscape', 'color'])
@@ -438,10 +442,12 @@ export const MockFrame = React.memo<MockFrameProps>(function MockFrame(props) {
   }, [width, height, landscape, device, zoom, animated])
 
   // Build CSS class string for device styling
-  const className = cx('mockframe', DeviceOptions[device].device, color, landscape && 'landscape')
+  const className = cx(
+    'mockframe', DeviceOptions[device].device, color, landscape && 'landscape', userClassName
+  )
 
   return (
-    <div className={className} {...divProps} style={style}>
+    <div className={className} {...divProps} style={{ ...style, ...userStyle }}>
       {/* Inner bezel layer */}
       <div className="inner" />
 
