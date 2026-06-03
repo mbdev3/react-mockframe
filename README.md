@@ -20,7 +20,7 @@ Device mockups for React. Showcase your apps in realistic phone, tablet, and lap
 - **Custom Device Frames** - Create your own frames with `CustomMockFrame`
 - **Modular CSS** - Import only the device families you need
 - **TypeScript First** - Full type safety with discriminated unions
-- **Lightweight** - ~11KB ESM, tree-shakeable
+- **Lightweight** - ~9.5KB ESM (~2.4KB gzipped), tree-shakeable
 
 ## Supported Devices
 
@@ -246,20 +246,22 @@ Per-side bezel example:
 
 Import only the device families you need to reduce bundle size:
 
+Sizes below are minified (gzipped in parentheses).
+
 ```tsx
-// Full bundle - all devices (~46KB)
+// Full bundle - all devices (~44KB min / ~6.5KB gzip)
 import 'react-mockframe/styles/mockframe.css'
 
-// iPhones only (~27KB)
+// iPhones only (~26KB min / ~4KB gzip)
 import 'react-mockframe/styles/mockframe-iphones.css'
 
-// Android only (~7KB)
+// Android only (~7KB min / ~1.5KB gzip)
 import 'react-mockframe/styles/mockframe-android.css'
 
-// Tablets only (~7KB)
+// Tablets only (~7KB min / ~1.6KB gzip)
 import 'react-mockframe/styles/mockframe-tablets.css'
 
-// Laptops only (~6KB)
+// Laptops only (~6KB min / ~1.5KB gzip)
 import 'react-mockframe/styles/mockframe-laptops.css'
 ```
 
