@@ -1,3 +1,9 @@
+/*!
+ * MockFrame device styles
+ * Adapted from Marvel devices.css (https://github.com/marvelapp/devices.css)
+ * Original work Copyright (c) 2014 Marvelapp — MIT License
+ * Modifications Copyright (c) 2026 Mohammed Banani — MIT License
+ */
 .mockframe{
 	display: inline-block;
 	position: relative;
