@@ -21,6 +21,13 @@ describe('MockFrame className/style merging', () => {
   })
 })
 
+describe('MockFrame structure', () => {
+  it('renders exactly one bottom-bar element', () => {
+    const { container } = render(<MockFrame device="iPhone 8" color="black" />)
+    expect(container.querySelectorAll('.bottom-bar')).toHaveLength(1)
+  })
+})
+
 describe('CustomMockFrame className merging', () => {
   it('merges frameClassName and a passed className', () => {
     const { container } = render(

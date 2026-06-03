@@ -476,7 +476,6 @@ export const MockFrame = React.memo<MockFrameProps>(function MockFrame(props) {
 
       {/* Home button (for devices that have one) */}
       <div className="home" />
-      <div className="bottom-bar" />
     </div>
   )
 })
