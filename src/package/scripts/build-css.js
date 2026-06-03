@@ -5,6 +5,12 @@ const { transform } = require('lightningcss');
 const srcDir = path.join(__dirname, '../css');
 const distDir = path.join(__dirname, '../dist/styles');
 
+// NOTE: the source CSS uses native nesting (&.iphone8 { ... }). The browser
+// targets below tell lightningcss to DOWN-COMPILE nesting to flat selectors,
+// which is why the shipped CSS supports Chrome/FF 95+ and Safari 15+ even though
+// native CSS nesting needs much newer engines. Do not raise these targets
+// without updating the README "Browser Support" section.
+
 // Ensure dist directory exists
 if (!fs.existsSync(distDir)) {
   fs.mkdirSync(distDir, { recursive: true });
