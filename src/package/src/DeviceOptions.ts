@@ -172,4 +172,5 @@ type DevicesType<R extends Record<string, DeviceType<string, readonly string[]>>
  * // MacBook Pro - color required, no landscape support
  * <MockFrame device="MacBook Pro" color="space-gray" />
  */
-export type MockFrameProps = DevicesType<typeof DeviceOptions> & React.HTMLAttributes<HTMLDivElement>
+export type MockFrameProps = DevicesType<typeof DeviceOptions> &
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'color'>
