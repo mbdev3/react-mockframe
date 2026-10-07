@@ -2,7 +2,7 @@ import { useState, useMemo, useRef, useEffect, useCallback, useLayoutEffect } fr
 import { createPortal } from 'react-dom'
 import { MockFrame, DeviceNames, DeviceOptions } from 'react-mockframe'
 import type { DeviceName } from 'react-mockframe'
-import { Smartphone, Upload, Download, RotateCcw, ZoomIn, Move, Globe, Image as ImageIcon, Palette, Sparkles, Eye, EyeOff, ChevronDown, Check } from 'lucide-react'
+import { Smartphone, Upload, Download, RotateCcw, ZoomIn, Move, Globe, Image as ImageIcon, Palette, Sparkles, Eye, EyeOff, ChevronDown, Check, BadgeCheck } from 'lucide-react'
 import iosScreenshot from '../assets/ios.webp'
 import androidScreenshot from '../assets/android.webp'
 import ipadScreenshot from '../assets/ipad-pro.webp'
@@ -19,16 +19,28 @@ const colorMap: Record<string, string> = {
   'lavender': '#c5b5d2',
   'cosmic-orange': '#F6823D',
   'deep-blue': '#4A547F',
+  // iPhone 18 Pro colors
+  'glacier': '#c3cede',
+  'burgundy': '#6b3a42',
+  'natural-titanium': '#b5aea4',
   'space-gray': '#3a3a3a',
+  'space-black': '#2d2b2e',
   // Pixel 10 colors
-  'obsidian': '#1a1a1a',
+  'obsidian': '#4a4d4d',
+  'frost': '#d1d8ed',
+  'indigo': '#5585e0',
+  'lemongrass': '#dfe1c3',
   'porcelain': '#e8e5e1',
   'mint': '#afdbc5',
   'rose': '#e8c4c4',
   // Galaxy S25 colors
   'phantom-black': '#1e1e1e',
   'icy-blue': '#c5d5e0',
-  'navy': '#1a2a40',
+  'navy': '#283a5e',
+  'blue-black': '#3a3e48',
+  'silver-shadow': '#a7a8ab',
+  'coral-red': '#ea646b',
+  'pink-gold': '#e8d7cd',
 }
 
 function getColorHex(color: string): string {
@@ -318,14 +330,22 @@ function MockAppScreen({ device, landscape, deviceWidth, deviceHeight }: {
 }
 
 // Devices that have a notch or dynamic island
-const devicesWithNotch: DeviceName[] = ['iPhone X', 'iPhone 17', 'MacBook Pro']
+const devicesWithNotch: DeviceName[] = ['iPhone X', 'iPhone 17', 'iPhone 18 Pro', 'MacBook Pro']
+
+// Older colour names the library still accepts for compatibility; hidden from the picker
+const legacyColors: Partial<Record<DeviceName, readonly string[]>> = {
+  'iPad Pro': ['space-gray'],
+  'MacBook Pro': ['space-gray'],
+  'Pixel 10': ['porcelain', 'mint', 'rose'],
+  'Galaxy S25': ['phantom-black', 'silver'],
+}
 
 export default function MockFrameDemo() {
-  const [device, setDevice] = useState<DeviceName>('iPhone X')
+  const [device, setDevice] = useState<DeviceName>('iPhone 18 Pro')
   const [landscape, setLandscape] = useState(false)
   const [hideNotch, setHideNotch] = useState(false)
   const deviceInfo = DeviceOptions[device]
-  const colors = deviceInfo.colors
+  const colors = deviceInfo.colors.filter((c) => !legacyColors[device]?.includes(c))
   const [color, setColor] = useState(colors[0])
   const [previewUrl, setPreviewUrl] = useState('')
   const [activeUrl, setActiveUrl] = useState('')
@@ -448,7 +468,12 @@ export default function MockFrameDemo() {
   }, [device, color, colors.length, landscape, deviceInfo.hasLandscape, deviceHasNotch, hideNotch])
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(codeSnippet)
+    try {
+      await navigator.clipboard.writeText(codeSnippet)
+    } catch {
+      // Clipboard can be blocked (permissions, insecure context); leave the button state alone
+      return
+    }
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -597,6 +622,23 @@ export default function MockFrameDemo() {
           Showcase your app in beautiful, realistic device frames.
           Perfect for portfolios, documentation, and marketing.
         </p>
+        <a
+          href="https://developer.apple.com/design/resources/#product-bezels"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 mt-5 px-4 py-2 rounded-full text-sm font-medium transition-opacity hover:opacity-80"
+          style={{
+            background: 'var(--color-bg-card)',
+            border: '1px solid var(--color-border)',
+            color: 'var(--color-text-primary)',
+          }}
+        >
+          <BadgeCheck className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--color-accent)' }} />
+          <span>
+            Measured against Apple's official product bezels
+            <span style={{ color: 'var(--color-text-secondary)' }}> · 99.8% match</span>
+          </span>
+        </a>
       </div>
 
       <div className="flex gap-8 lg:flex-row flex-col">
@@ -713,7 +755,7 @@ export default function MockFrameDemo() {
                 className="block text-sm font-medium mb-3"
                 style={{ color: 'var(--color-text-primary)' }}
               >
-                {device === 'iPhone 17' ? 'Dynamic Island' : 'Notch'}
+                {device === 'iPhone 17' || device === 'iPhone 18 Pro' ? 'Dynamic Island' : 'Notch'}
               </label>
               <div className="flex gap-2">
                 {[

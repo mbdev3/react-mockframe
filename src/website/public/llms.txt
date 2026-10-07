@@ -28,7 +28,7 @@ import 'react-mockframe/styles/mockframe.css'
 </section>
 
 ## Supported devices
-- iPhone X, iPhone 8, iPhone 8 Plus, iPhone 17
+- iPhone X, iPhone 8, iPhone 8 Plus, iPhone 17, iPhone 18 Pro
 - Pixel 10, Galaxy S25
 - iPad Mini, iPad Pro
 - MacBook Pro 2020, MacBook Pro
@@ -39,7 +39,7 @@ import 'react-mockframe/styles/mockframe.css'
 - Hide/show notch and Dynamic Island
 - Custom zoom and dimensions
 - TypeScript support
-- Lightweight (~11KB)
+- Lightweight (~10KB ESM, ~2.6KB gzipped)
 
 ## Documentation
 https://mockframe.matterdevelopment.com

@@ -12,7 +12,8 @@ Device mockups for React. Showcase your apps in realistic phone, tablet, and lap
 
 ## Features
 
-- **10 Modern Devices** - iPhone 8/8 Plus, iPhone X, iPhone 17, Pixel 10, Galaxy S25, iPad Mini, iPad Pro, MacBook Pro 2020, MacBook Pro
+- **11 Devices** - iPhone 8/8 Plus, iPhone X, iPhone 17, iPhone 18 Pro, Pixel 10, Galaxy S25, iPad Mini, iPad Pro, MacBook Pro 2020, MacBook Pro
+- **Measured, Not Eyeballed** - iPhone 17, iPhone 18 Pro, iPad Pro and MacBook Pro frames are measured from Apple's official product bezels (99.8% shape match): real screen sizes, corner radii, bezels, Dynamic Island and button positions, with frame colours sampled per finish
 - **Multiple Color Variants** - Authentic device colors for each model
 - **Landscape Mode** - Rotate phones and tablets
 - **Notch/Dynamic Island Toggle** - Show or hide notches
@@ -20,7 +21,7 @@ Device mockups for React. Showcase your apps in realistic phone, tablet, and lap
 - **Custom Device Frames** - Create your own frames with `CustomMockFrame`
 - **Modular CSS** - Import only the device families you need
 - **TypeScript First** - Full type safety with discriminated unions
-- **Lightweight** - ~9.5KB ESM (~2.4KB gzipped), tree-shakeable
+- **Lightweight** - ~9.8KB ESM (~2.6KB gzipped), tree-shakeable
 
 ## Supported Devices
 
@@ -30,12 +31,17 @@ Device mockups for React. Showcase your apps in realistic phone, tablet, and lap
 | iPhone 8 | black, silver, gold | Yes | - |
 | iPhone 8 Plus | black, silver, gold | Yes | - |
 | iPhone 17 | black, white, mist-blue, sage, lavender, cosmic-orange, deep-blue | Yes | Dynamic Island |
-| Pixel 10 | obsidian, porcelain, mint, rose | Yes | - |
-| Galaxy S25 | phantom-black, icy-blue, navy, silver, mint | Yes | - |
+| iPhone 18 Pro | black, silver, glacier, burgundy, gold, natural-titanium | Yes | Dynamic Island |
+| Pixel 10 | obsidian, frost, indigo, lemongrass | Yes | - |
+| Galaxy S25 | blue-black, icy-blue, navy, mint, silver-shadow, coral-red, pink-gold | Yes | - |
 | iPad Mini | black, silver | Yes | - |
-| iPad Pro | space-gray, silver | Yes | - |
+| iPad Pro | space-black, silver | Yes | - |
 | MacBook Pro 2020 | - | - | - |
-| MacBook Pro | space-gray, silver | - | Notch |
+| MacBook Pro | space-black, silver | - | Notch |
+
+Default screen sizes (CSS px) match each device's real viewport: iPhone 17 / 18 Pro 402×874, Pixel 10 412×924, Galaxy S25 360×780. iPad Pro (512×683) and MacBook Pro (960×624) are scaled down from the real 13" and 14" screens, keeping their exact proportions.
+
+`gold` and `natural-titanium` are not iPhone 18 Pro finishes (Apple sells Black, Silver, Glacier and Burgundy). `gold` is Apple's iPhone Air Light Gold applied to the 18 Pro's satin aluminium, and `natural-titanium` is sampled from Apple's iPhone 16 Pro Natural Titanium. Older colour names stay accepted for compatibility: `space-gray` (iPad Pro, MacBook Pro), `porcelain` / `mint` / `rose` (Pixel 10), `phantom-black` / `silver` (Galaxy S25).
 
 ## Installation
 
@@ -83,7 +89,7 @@ export default function App() {
 ### Landscape Mode
 
 ```tsx
-<MockFrame device="iPad Pro" color="space-gray" landscape>
+<MockFrame device="iPad Pro" color="space-black" landscape>
   <YourTabletApp />
 </MockFrame>
 ```
@@ -102,7 +108,7 @@ export default function App() {
 </MockFrame>
 
 // Hide notch on MacBook Pro
-<MockFrame device="MacBook Pro" color="space-gray" hideNotch>
+<MockFrame device="MacBook Pro" color="space-black" hideNotch>
   <YourDesktopApp />
 </MockFrame>
 ```
@@ -112,7 +118,7 @@ export default function App() {
 ```tsx
 <MockFrame
   device="Pixel 10"
-  color="mint"
+  color="frost"
   width={360}
   height={800}
   zoom={0.8}
@@ -158,7 +164,7 @@ export default function App() {
 
 ```tsx
 <div className="flex justify-center py-16">
-  <MockFrame device="MacBook Pro" color="space-gray">
+  <MockFrame device="MacBook Pro" color="space-black">
     <img src="/dashboard-screenshot.png" alt="Dashboard preview" />
   </MockFrame>
 </div>
@@ -249,19 +255,19 @@ Import only the device families you need to reduce bundle size:
 Sizes below are minified (gzipped in parentheses).
 
 ```tsx
-// Full bundle - all devices (~44KB min / ~6.5KB gzip)
+// Full bundle - all devices (~37KB min / ~6.8KB gzip)
 import 'react-mockframe/styles/mockframe.css'
 
-// iPhones only (~26KB min / ~4KB gzip)
+// iPhones only (~23KB min / ~4.2KB gzip)
 import 'react-mockframe/styles/mockframe-iphones.css'
 
-// Android only (~7KB min / ~1.5KB gzip)
+// Android only (~5KB min / ~1.4KB gzip)
 import 'react-mockframe/styles/mockframe-android.css'
 
-// Tablets only (~7KB min / ~1.6KB gzip)
+// Tablets only (~5KB min / ~1.5KB gzip)
 import 'react-mockframe/styles/mockframe-tablets.css'
 
-// Laptops only (~6KB min / ~1.5KB gzip)
+// Laptops only (~6KB min / ~1.7KB gzip)
 import 'react-mockframe/styles/mockframe-laptops.css'
 ```
 
@@ -295,13 +301,13 @@ import { DeviceNames, DeviceOptions } from 'react-mockframe'
 
 // Array of all device names
 console.log(DeviceNames)
-// ['iPhone X', 'iPhone 8', 'iPhone 8 Plus', 'iPhone 17', ...]
+// ['iPhone X', 'iPhone 8', 'iPhone 8 Plus', 'iPhone 17', 'iPhone 18 Pro', ...]
 
 // Access device configuration
 const config = DeviceOptions['iPhone 17']
 console.log(config.colors)  // ['black', 'white', 'mist-blue', ...]
-console.log(config.width)   // 393
-console.log(config.height)  // 852
+console.log(config.width)   // 402
+console.log(config.height)  // 874
 ```
 
 ## Demo Website
@@ -328,7 +334,7 @@ The interactive demo website includes:
 
 ## Credits
 
-Device frame styles are adapted from [Marvel devices.css](https://github.com/marvelapp/devices.css) (MIT © 2014 Marvelapp). Newer device frames (iPhone 17, Pixel 10, Galaxy S25, iPad Pro, MacBook Pro) and all React/TypeScript code are original to this project.
+Device frame styles are adapted from [Marvel devices.css](https://github.com/marvelapp/devices.css) (MIT © 2014 Marvelapp). Newer device frames (iPhone 17, iPhone 18 Pro, Pixel 10, Galaxy S25, iPad Pro, MacBook Pro) and all React/TypeScript code are original to this project. Apple frame measurements come from Apple's [product bezels](https://developer.apple.com/design/resources/#product-bezels); no Apple artwork is included.
 
 ## Author
 

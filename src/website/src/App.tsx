@@ -101,7 +101,12 @@ function Navigation({ theme, setTheme }: { theme: string; setTheme: (t: string) 
 export default function App() {
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('theme')
+      let saved: string | null = null
+      try {
+        saved = localStorage.getItem('theme')
+      } catch {
+        // Storage blocked (private mode, disabled cookies): fall back to the system theme
+      }
       if (saved) return saved
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
     }
@@ -110,7 +115,11 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
+    try {
+      localStorage.setItem('theme', theme)
+    } catch {
+      // Storage blocked: the theme just won't persist
+    }
   }, [theme])
 
   return (
