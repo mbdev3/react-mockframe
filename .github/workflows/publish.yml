@@ -3,9 +3,12 @@ name: Publish
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   publish:
-    if: github.repository == 'mbdev3/react-mockframe'
+    if: github.repository == 'mbdev3/react-mockframe' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,10 +17,12 @@ jobs:
           version: 9
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           registry-url: https://registry.npmjs.org
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm --filter react-mockframe test
       - run: pnpm build:lib
       - run: npm publish --access public
         working-directory: src/package
