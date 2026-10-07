@@ -8,7 +8,6 @@
 	display: inline-block;
 	position: relative;
 	box-sizing: content-box !important;
-    transition: all 500ms cubic-bezier(0.075, 0.82, 0.165, 1);	
 
 	.screen {
 		width: 100%;
@@ -739,7 +738,7 @@
 			position: absolute;
 			content: '';
 			display: block;
-			top: 680px;
+			top: calc(100% - 40px);
 			left: -70px;
 			border-bottom-left-radius: 90px 18px;
 			border-bottom-right-radius: 90px 18px;
@@ -783,7 +782,7 @@
 			position: absolute;
 			content: '';
 			display: block;
-			top: 680px;
+			top: calc(100% - 40px);
 			left: -70px;
 
 			&:before,
@@ -987,7 +986,8 @@
 			width: 210px;
 			height: 30px;
 			top: 26px;
-			left: 108px;
+			left: 50%;
+			margin-left: -105px;
 			z-index: 4;
 			background: black;
 			border-bottom-left-radius: 24px;
@@ -1089,8 +1089,8 @@
 				height: 210px;
 				width: 30px;
 				left: 26px;
-				bottom: 108px;
-				top: auto;
+				top: 50%;
+				margin: -105px 0 0;
 				border-top-right-radius: 24px;
 			    border-bottom-right-radius: 24px;
 			    border-bottom-left-radius: 0;
@@ -1113,1772 +1113,903 @@
 		}
 	}
 
+	/* ===========================================
+	   	iPHONE 17 / iPHONE 18 PRO
+	   Geometry and finishes are measured from Apple's official product
+	   bezels (developer.apple.com/design/resources), 1px = 1pt. The metal
+	   band is 12 concentric rings sampled from those renders, so each finish
+	   keeps Apple's highlight and shading across the band.
+	   =========================================== */
+
 	&.iphone17 {
-		width: 375px;
-		height: 812px;
-		padding: 12px;
-		background: linear-gradient(145deg, #4a4a4a 0%, #333333 15%, #252525 50%, #333333 85%, #4a4a4a 100%);
-		border-radius: 52px;
+		width: 402px;
+		height: 874px;
+		padding: 14.33px 14.67px;
+		border-radius: 78.4px;
+		background: #000;
 		box-shadow:
-			inset 0 0 0 1px rgba(255, 255, 255, 0.2),
-			inset 0 1px 0 0 rgba(255, 255, 255, 0.25),
-			0 30px 60px -15px rgba(0, 0, 0, 0.5),
-			0 0 0 1px rgba(0, 0, 0, 0.4);
-		position: relative;
+			inset 0 0 0 0.667px var(--mf-b1),
+			inset 0 0 0 1.333px var(--mf-b2),
+			inset 0 0 0 2px var(--mf-b3),
+			inset 0 0 0 2.667px var(--mf-b4),
+			inset 0 0 0 3.333px var(--mf-b5),
+			inset 0 0 0 3.667px var(--mf-b6),
+			inset 0 0 0 4px var(--mf-b7),
+			inset 0 0 0 4.333px var(--mf-b8),
+			inset 0 0 0 4.667px var(--mf-b9),
+			inset 0 0 0 5px var(--mf-b10),
+			inset 0 0 0 5.333px var(--mf-b11),
+			inset 0 0 0 5.667px var(--mf-b12),
+			inset 0 0 3px 8.5px var(--mf-glass);
 
-		/* Outer frame with metallic gradient */
-		&::before {
-			content: '';
-			position: absolute;
-			top: 3px;
-			left: 3px;
-			right: 3px;
-			bottom: 3px;
-			border-radius: 50px;
-			background: linear-gradient(145deg, #1a1a1a 0%, #111 100%);
-			z-index: 1;
-		}
-
-		/* Inner bezel */
-		&::after {
-			content: '';
-			position: absolute;
-			top: 10px;
-			left: 10px;
-			right: 10px;
-			bottom: 10px;
-			border-radius: 44px;
-			background: #000;
-			z-index: 2;
-		}
-
-		/* Antenna bands */
-		.antenna {
-			position: absolute;
-			z-index: 5;
-			height: 3px;
-			width: 12px;
-			background: linear-gradient(
-				to right,
-				transparent 0%,
-				#1a1a1a 15%,
-				#0a0a0a 50%,
-				#1a1a1a 85%,
-				transparent 100%
-			);
-			border-radius: 1px;
-
-			&.top-left {
-				top: 82px;
-				left: 0;
-			}
-
-			&.top-right {
-				top: 82px;
-				right: 0;
-			}
-
-			&.bottom-left {
-				bottom: 82px;
-				left: 0;
-			}
-
-			&.bottom-right {
-				bottom: 82px;
-				right: 0;
-			}
-		}
-
-		/* Corner chamfer highlights */
-		.corner-highlight {
-			position: absolute;
-			z-index: 1;
-			pointer-events: none;
-			width: 60px;
-			height: 60px;
-
-			&.tl {
-				top: 6px;
-				left: 6px;
-				background: radial-gradient(
-					ellipse at 100% 100%,
-					rgba(255, 255, 255, 0.15) 0%,
-					rgba(255, 255, 255, 0.06) 30%,
-					transparent 60%
-				);
-				border-radius: 46px 0 0 0;
-			}
-
-			&.tr {
-				top: 6px;
-				right: 6px;
-				background: radial-gradient(
-					ellipse at 0% 100%,
-					rgba(255, 255, 255, 0.15) 0%,
-					rgba(255, 255, 255, 0.06) 30%,
-					transparent 60%
-				);
-				border-radius: 0 46px 0 0;
-			}
-
-			&.bl {
-				bottom: 6px;
-				left: 6px;
-				background: radial-gradient(
-					ellipse at 100% 0%,
-					rgba(255, 255, 255, 0.12) 0%,
-					rgba(255, 255, 255, 0.05) 30%,
-					transparent 60%
-				);
-				border-radius: 0 0 0 46px;
-			}
-
-			&.br {
-				bottom: 6px;
-				right: 6px;
-				background: radial-gradient(
-					ellipse at 0% 0%,
-					rgba(255, 255, 255, 0.12) 0%,
-					rgba(255, 255, 255, 0.05) 30%,
-					transparent 60%
-				);
-				border-radius: 0 0 46px 0;
-			}
-		}
-
-		.inner-edge {
-			position: absolute;
-			top: 9px;
-			left: 9px;
-			right: 9px;
-			bottom: 9px;
-			border-radius: 45px;
-			border: 1px solid rgba(80, 80, 80, 0.5);
-			z-index: 1;
-			pointer-events: none;
-		}
+		/* Black (default) */
+		--mf-b1: #333536; --mf-b2: #434445; --mf-b3: #555657; --mf-b4: #656667; --mf-b5: #767778; --mf-b6: #898a8b;
+		--mf-b7: #999a9a; --mf-b8: #a7a8a8; --mf-b9: #999a9b; --mf-b10: #737575; --mf-b11: #4d4e4f; --mf-b12: #353636;
+		--mf-glass: #393939;
 
 		.screen {
-			position: relative;
-			width: 100%;
-			height: 100%;
-			background: #fff;
-			border-radius: 42px;
-			z-index: 3;
-			overflow: hidden;
-			box-shadow: 0 0 0 2px #000;
+			border-radius: 63.5px;
+			box-shadow: none;
 		}
 
-		/* Dynamic Island */
 		.dynamic-island {
 			position: absolute;
-			top: 22px;
+			top: 28.67px;
 			left: 50%;
-			transform: translateX(-50%);
-			width: 128px;
-			height: 29px;
+			width: 124.67px;
+			height: 36px;
+			margin-left: -62.33px;
+			border-radius: 18px;
 			background: #000;
-			border-radius: 15px;
 			z-index: 10;
-			display: flex;
-			align-items: center;
-			justify-content: flex-end;
-			padding-right: 11px;
-			gap: 6px;
-			box-sizing: border-box;
 
-			.indicator {
-				width: 6px;
-				height: 6px;
-				background: #22c55e;
-				border-radius: 50%;
-				box-shadow:
-					0 0 5px #22c55e,
-					0 0 8px rgba(34, 197, 94, 0.5);
+			/* TrueDepth module */
+			&::before, &::after {
+				content: '';
+				position: absolute;
+			}
+
+			&::before {
+				top: 1px;
+				left: 0.33px;
+				width: 78px;
+				height: 34px;
+				border-radius: 17px;
+				background: #060606;
+			}
+
+			&::after {
+				top: 7px;
+				left: 6.67px;
+				width: 65.67px;
+				height: 22px;
+				border-radius: 11px;
+				background: #000;
 			}
 
 			.camera {
-				width: 11px;
-				height: 11px;
-				background: radial-gradient(
-					circle at 40% 40%,
-					#3a3a4a 0%,
-					#252530 40%,
-					#15151a 70%,
-					#0a0a0f 100%
-				);
-				border-radius: 50%;
-				box-shadow:
-					inset 0 1px 2px rgba(0, 0, 0, 0.8),
-					0 0 0 1px rgba(60, 60, 80, 0.3);
-				position: relative;
-
-				&::before {
-					content: '';
-					position: absolute;
-					top: 2px;
-					left: 2px;
-					width: 3px;
-					height: 2px;
-					background: radial-gradient(
-						ellipse at center,
-						rgba(100, 100, 150, 0.4) 0%,
-						transparent 100%
-					);
-					border-radius: 50%;
-				}
-
-				&::after {
-					content: '';
-					position: absolute;
-					top: 50%;
-					left: 50%;
-					transform: translate(-50%, -50%);
-					width: 5px;
-					height: 5px;
-					background: radial-gradient(
-						circle at center,
-						rgba(60, 80, 140, 0.35) 0%,
-						transparent 70%
-					);
-					border-radius: 50%;
-				}
+				top: 13px;
+				right: 13px;
+				box-shadow: 0 0 0 4.5px #0a0d10, 0 0 0 12.33px #060606;
 			}
 		}
 
-		/* Side buttons */
-		.sleep {
-			position: absolute;
-			top: 165px;
-			right: -3px;
-			width: 3px;
-			height: 85px;
-			background: linear-gradient(to bottom,
-				#5a5a5a 0%,
-				#454545 8%,
-				#353535 20%,
-				#2d2d2d 50%,
-				#353535 80%,
-				#454545 92%,
-				#5a5a5a 100%
-			);
-			border-radius: 0 2px 2px 0;
-			z-index: 4;
-			box-shadow: 1px 0 2px rgba(0, 0, 0, 0.3);
+		/* Earpiece slit between the band and the glass */
+		&::before {
+			top: 5.67px;
+			width: 85.33px;
+			height: 3px;
+			margin-left: -42.67px;
+			background: #0d0d0d;
 		}
 
-		.action {
-			position: absolute;
-			top: 165px;
-			left: -3px;
-			width: 3px;
-			height: 34px;
-			background: linear-gradient(to bottom,
-				#5a5a5a 0%,
-				#454545 8%,
-				#353535 20%,
-				#2d2d2d 50%,
-				#353535 80%,
-				#454545 92%,
-				#5a5a5a 100%
-			);
-			border-radius: 2px 0 0 2px;
-			z-index: 4;
-			box-shadow: -1px 0 2px rgba(0, 0, 0, 0.3);
-		}
+		.action { top: 185px; height: 41.67px; }
+		.volume { top: 257.33px; height: 67.67px; }
+		.sleep { top: 280.67px; height: 106.67px; }
 
-		.volume {
-			position: absolute;
-			top: 215px;
-			left: -3px;
-			width: 3px;
-			height: 58px;
-			background: linear-gradient(to bottom,
-				#5a5a5a 0%,
-				#454545 8%,
-				#353535 20%,
-				#2d2d2d 50%,
-				#353535 80%,
-				#454545 92%,
-				#5a5a5a 100%
-			);
-			border-radius: 2px 0 0 2px;
-			z-index: 4;
-			box-shadow: -1px 0 2px rgba(0, 0, 0, 0.3);
-
-			&::before {
-				content: '';
-				position: absolute;
-				top: 70px;
-				left: 0;
-				width: 3px;
-				height: 58px;
-				background: linear-gradient(to bottom,
-					#5a5a5a 0%,
-					#454545 8%,
-					#353535 20%,
-					#2d2d2d 50%,
-					#353535 80%,
-					#454545 92%,
-					#5a5a5a 100%
-				);
-				border-radius: 2px 0 0 2px;
-				box-shadow: -1px 0 2px rgba(0, 0, 0, 0.3);
-			}
-		}
-
-		.camera-control {
-			position: absolute;
-			top: 380px;
-			right: -3px;
-			width: 3px;
-			height: 42px;
-			background: linear-gradient(to bottom,
-				#5a5a5a 0%,
-				#454545 8%,
-				#353535 20%,
-				#2d2d2d 50%,
-				#353535 80%,
-				#454545 92%,
-				#5a5a5a 100%
-			);
-			border-radius: 0 2px 2px 0;
-			z-index: 4;
-			box-shadow: 1px 0 2px rgba(0, 0, 0, 0.3);
-		}
-
-		/* Hide unused elements */
-		.top-bar, .bottom-bar, .home, .sensor, .speaker, .sensors, .more-sensors, .inner, .inner-shadow {
-			display: none;
-		}
-
-		/* White / Starlight */
+		/* White */
 		&.white {
-			background: linear-gradient(145deg, #fafaf7 0%, #e8e8e3 15%, #d8d8d3 50%, #e8e8e3 85%, #fafaf7 100%);
-			box-shadow:
-				inset 0 0 0 1px rgba(255, 255, 255, 0.95),
-				inset 0 1px 0 0 rgba(255, 255, 255, 1),
-				0 30px 60px -15px rgba(0, 0, 0, 0.2),
-				0 0 0 1px rgba(0, 0, 0, 0.06);
-
-			&::before {
-				background: linear-gradient(145deg, #d0d0cb 0%, #c0c0bb 100%);
-			}
-
-			.antenna {
-				background: linear-gradient(
-					to right,
-					transparent 0%,
-					#a0a09b 15%,
-					#888883 50%,
-					#a0a09b 85%,
-					transparent 100%
-				);
-			}
-
-			.corner-highlight {
-				&.bl, &.br {
-					background: radial-gradient(
-						ellipse at 50% 0%,
-						rgba(255, 255, 255, 0.6) 0%,
-						rgba(255, 255, 255, 0.2) 40%,
-						transparent 70%
-					);
-				}
-
-				&.tl, &.tr {
-					background: radial-gradient(
-						ellipse at 50% 100%,
-						rgba(255, 255, 255, 0.7) 0%,
-						rgba(255, 255, 255, 0.25) 40%,
-						transparent 70%
-					);
-				}
-			}
-
-			.inner-edge {
-				border-color: rgba(180, 180, 175, 0.6);
-			}
-
-			.sleep, .camera-control, .action, .volume {
-				background: linear-gradient(to bottom, #f0f0eb 0%, #d8d8d3 15%, #c8c8c3 50%, #d8d8d3 85%, #f0f0eb 100%);
-				box-shadow: none;
-
-				&::before {
-					background: linear-gradient(to bottom, #f0f0eb 0%, #d8d8d3 15%, #c8c8c3 50%, #d8d8d3 85%, #f0f0eb 100%);
-					box-shadow: none;
-				}
-			}
+			--mf-b1: #8e8e8d; --mf-b2: #989796; --mf-b3: #a7a6a5; --mf-b4: #bbbab9; --mf-b5: #cbcbca; --mf-b6: #d8d8d7;
+			--mf-b7: #e1e1e0; --mf-b8: #e8e8e8; --mf-b9: #dfdfde; --mf-b10: #c9c8c8; --mf-b11: #9d9d9c; --mf-b12: #555555;
+			--mf-glass: #494949;
 		}
 
 		/* Mist Blue */
 		&.mist-blue {
-			background: linear-gradient(145deg, #c8d5e0 0%, #a8bac8 15%, #95a8b8 50%, #a8bac8 85%, #c8d5e0 100%);
-			box-shadow:
-				inset 0 0 0 1px rgba(255, 255, 255, 0.55),
-				inset 0 1px 0 0 rgba(255, 255, 255, 0.65),
-				0 30px 60px -15px rgba(0, 0, 0, 0.28),
-				0 0 0 1px rgba(0, 0, 0, 0.1);
-
-			&::before {
-				background: linear-gradient(145deg, #8598a8 0%, #758898 100%);
-			}
-
-			.antenna {
-				background: linear-gradient(
-					to right,
-					transparent 0%,
-					#6a7a8a 15%,
-					#5a6a7a 50%,
-					#6a7a8a 85%,
-					transparent 100%
-				);
-			}
-
-			.corner-highlight {
-				opacity: 0.7;
-			}
-
-			.inner-edge {
-				border-color: rgba(120, 140, 160, 0.5);
-			}
-
-			.sleep, .camera-control, .action, .volume {
-				background: linear-gradient(to bottom, #bccad5 0%, #a0b2c2 15%, #90a5b5 50%, #a0b2c2 85%, #bccad5 100%);
-				box-shadow: none;
-
-				&::before {
-					background: linear-gradient(to bottom, #bccad5 0%, #a0b2c2 15%, #90a5b5 50%, #a0b2c2 85%, #bccad5 100%);
-					box-shadow: none;
-				}
-			}
+			--mf-b1: #5e6c83; --mf-b2: #728198; --mf-b3: #8897af; --mf-b4: #9cabc5; --mf-b5: #aab9d2; --mf-b6: #b7c5dd;
+			--mf-b7: #c1cee4; --mf-b8: #cbd7ea; --mf-b9: #c1cde2; --mf-b10: #a8b6ce; --mf-b11: #818ea2; --mf-b12: #4a4f57;
+			--mf-glass: #494949;
 		}
 
 		/* Sage */
 		&.sage {
-			background: linear-gradient(145deg, #c5d4c0 0%, #a5b8a1 15%, #94a890 50%, #a5b8a1 85%, #c5d4c0 100%);
-			box-shadow:
-				inset 0 0 0 1px rgba(255, 255, 255, 0.55),
-				inset 0 1px 0 0 rgba(255, 255, 255, 0.65),
-				0 30px 60px -15px rgba(0, 0, 0, 0.28),
-				0 0 0 1px rgba(0, 0, 0, 0.1);
-
-			&::before {
-				background: linear-gradient(145deg, #859884 0%, #758874 100%);
-			}
-
-			.antenna {
-				background: linear-gradient(
-					to right,
-					transparent 0%,
-					#6a7a69 15%,
-					#5a6a59 50%,
-					#6a7a69 85%,
-					transparent 100%
-				);
-			}
-
-			.corner-highlight {
-				opacity: 0.7;
-			}
-
-			.inner-edge {
-				border-color: rgba(120, 150, 115, 0.5);
-			}
-
-			.sleep, .camera-control, .action, .volume {
-				background: linear-gradient(to bottom, #b8cab5 0%, #9eb89a 15%, #8ea88a 50%, #9eb89a 85%, #b8cab5 100%);
-				box-shadow: none;
-
-				&::before {
-					background: linear-gradient(to bottom, #b8cab5 0%, #9eb89a 15%, #8ea88a 50%, #9eb89a 85%, #b8cab5 100%);
-					box-shadow: none;
-				}
-			}
+			--mf-b1: #5d694d; --mf-b2: #6e7a5b; --mf-b3: #7a8867; --mf-b4: #869572; --mf-b5: #99a884; --mf-b6: #b0bf9c;
+			--mf-b7: #c1cfae; --mf-b8: #cedbbe; --mf-b9: #bfccad; --mf-b10: #9fad89; --mf-b11: #778365; --mf-b12: #4b5042;
+			--mf-glass: #393939;
 		}
 
 		/* Lavender */
 		&.lavender {
-			background: linear-gradient(145deg, #e0d2e8 0%, #c5b5d2 15%, #b5a2c2 50%, #c5b5d2 85%, #e0d2e8 100%);
-			box-shadow:
-				inset 0 0 0 1px rgba(255, 255, 255, 0.55),
-				inset 0 1px 0 0 rgba(255, 255, 255, 0.65),
-				0 30px 60px -15px rgba(0, 0, 0, 0.28),
-				0 0 0 1px rgba(0, 0, 0, 0.1);
-
-			&::before {
-				background: linear-gradient(145deg, #9c8cac 0%, #8c7c9c 100%);
-			}
-
-			.antenna {
-				background: linear-gradient(
-					to right,
-					transparent 0%,
-					#7c6c8c 15%,
-					#6c5c7c 50%,
-					#7c6c8c 85%,
-					transparent 100%
-				);
-			}
-
-			.corner-highlight {
-				opacity: 0.7;
-			}
-
-			.inner-edge {
-				border-color: rgba(150, 130, 165, 0.5);
-			}
-
-			.sleep, .camera-control, .action, .volume {
-				background: linear-gradient(to bottom, #d2c5dc 0%, #baa8ca 15%, #aa98ba 50%, #baa8ca 85%, #d2c5dc 100%);
-				box-shadow: none;
-
-				&::before {
-					background: linear-gradient(to bottom, #d2c5dc 0%, #baa8ca 15%, #aa98ba 50%, #baa8ca 85%, #d2c5dc 100%);
-					box-shadow: none;
-				}
-			}
+			--mf-b1: #91879c; --mf-b2: #9e95aa; --mf-b3: #b0a6bb; --mf-b4: #beb5ca; --mf-b5: #cac1d5; --mf-b6: #d8d1e1;
+			--mf-b7: #e4deea; --mf-b8: #ece8f1; --mf-b9: #e5e0eb; --mf-b10: #d2cada; --mf-b11: #a49dad; --mf-b12: #57545b;
+			--mf-glass: #494949;
 		}
 
-		/* Cosmic Orange */
+		/* Cosmic Orange (iPhone 17 Pro finish) */
 		&.cosmic-orange {
-			background: linear-gradient(145deg, #f9a66d 0%, #f6823d 15%, #e5712c 50%, #f6823d 85%, #f9a66d 100%);
-			box-shadow:
-				inset 0 0 0 1px rgba(255, 255, 255, 0.55),
-				inset 0 1px 0 0 rgba(255, 255, 255, 0.65),
-				0 30px 60px -15px rgba(0, 0, 0, 0.28),
-				0 0 0 1px rgba(0, 0, 0, 0.1);
-
-			&::before {
-				background: linear-gradient(145deg, #c5612a 0%, #b55520 100%);
-			}
-
-			.antenna {
-				background: linear-gradient(
-					to right,
-					transparent 0%,
-					#a54a1a 15%,
-					#8a3a10 50%,
-					#a54a1a 85%,
-					transparent 100%
-				);
-			}
-
-			.corner-highlight {
-				opacity: 0.7;
-			}
-
-			.inner-edge {
-				border-color: rgba(180, 100, 60, 0.5);
-			}
-
-			.sleep, .camera-control, .action, .volume {
-				background: linear-gradient(to bottom, #f8955a 0%, #f6823d 15%, #e5712c 50%, #f6823d 85%, #f8955a 100%);
-				box-shadow: none;
-
-				&::before {
-					background: linear-gradient(to bottom, #f8955a 0%, #f6823d 15%, #e5712c 50%, #f6823d 85%, #f8955a 100%);
-					box-shadow: none;
-				}
-			}
+			--mf-b1: #c14e23; --mf-b2: #da6837; --mf-b3: #ea824d; --mf-b4: #f59d67; --mf-b5: #fbb885; --mf-b6: #fdcca1;
+			--mf-b7: #fed8b6; --mf-b8: #fee0c5; --mf-b9: #fedfc6; --mf-b10: #f4ba97; --mf-b11: #d3784f; --mf-b12: #a84825;
+			--mf-glass: #535252;
 		}
 
-		/* Deep Blue */
+		/* Deep Blue (iPhone 17 Pro finish) */
 		&.deep-blue {
-			background: linear-gradient(145deg, #6a7499 0%, #4a547f 15%, #3a446f 50%, #4a547f 85%, #6a7499 100%);
-			box-shadow:
-				inset 0 0 0 1px rgba(255, 255, 255, 0.35),
-				inset 0 1px 0 0 rgba(255, 255, 255, 0.45),
-				0 30px 60px -15px rgba(0, 0, 0, 0.4),
-				0 0 0 1px rgba(0, 0, 0, 0.2);
-
-			&::before {
-				background: linear-gradient(145deg, #3a446a 0%, #2a345a 100%);
-			}
-
-			.antenna {
-				background: linear-gradient(
-					to right,
-					transparent 0%,
-					#2a345a 15%,
-					#1a244a 50%,
-					#2a345a 85%,
-					transparent 100%
-				);
-			}
-
-			.corner-highlight {
-				opacity: 0.5;
-			}
-
-			.inner-edge {
-				border-color: rgba(80, 90, 120, 0.5);
-			}
-
-			.sleep, .camera-control, .action, .volume {
-				background: linear-gradient(to bottom, #5a6489 0%, #4a547f 15%, #3a446f 50%, #4a547f 85%, #5a6489 100%);
-				box-shadow: none;
-
-				&::before {
-					background: linear-gradient(to bottom, #5a6489 0%, #4a547f 15%, #3a446f 50%, #4a547f 85%, #5a6489 100%);
-					box-shadow: none;
-				}
-			}
+			--mf-b1: #252b3b; --mf-b2: #353b4c; --mf-b3: #444b5e; --mf-b4: #585f73; --mf-b5: #727a90; --mf-b6: #8c93aa;
+			--mf-b7: #9fa6be; --mf-b8: #aeb5cd; --mf-b9: #adb4cc; --mf-b10: #7c8399; --mf-b11: #3d4355; --mf-b12: #212736;
+			--mf-glass: #3b3b3b;
 		}
 
-		/* Landscape mode */
 		&.landscape {
-			height: 375px;
-			width: 812px;
-			padding: 12px;
+			width: 874px;
+			height: 402px;
+			padding: 14.67px 14.33px;
 
-			.antenna {
-				&.top-left {
-					top: 0;
-					left: 82px;
-					width: 3px;
-					height: 12px;
-					background: linear-gradient(
-						to bottom,
-						transparent 0%,
-						#1a1a1a 15%,
-						#0a0a0a 50%,
-						#1a1a1a 85%,
-						transparent 100%
-					);
-				}
-
-				&.top-right {
-					top: 0;
-					right: 82px;
-					left: auto;
-					width: 3px;
-					height: 12px;
-					background: linear-gradient(
-						to bottom,
-						transparent 0%,
-						#1a1a1a 15%,
-						#0a0a0a 50%,
-						#1a1a1a 85%,
-						transparent 100%
-					);
-				}
-
-				&.bottom-left {
-					bottom: 0;
-					left: 82px;
-					width: 3px;
-					height: 12px;
-					background: linear-gradient(
-						to bottom,
-						transparent 0%,
-						#1a1a1a 15%,
-						#0a0a0a 50%,
-						#1a1a1a 85%,
-						transparent 100%
-					);
-				}
-
-				&.bottom-right {
-					bottom: 0;
-					right: 82px;
-					left: auto;
-					width: 3px;
-					height: 12px;
-					background: linear-gradient(
-						to bottom,
-						transparent 0%,
-						#1a1a1a 15%,
-						#0a0a0a 50%,
-						#1a1a1a 85%,
-						transparent 100%
-					);
-				}
+			&::before {
+				top: 50%;
+				left: 5.67px;
+				width: 3px;
+				height: 85.33px;
+				margin: -42.67px 0 0;
 			}
 
 			.dynamic-island {
 				top: 50%;
-				left: -28px;
-				transform: translateY(-50%) rotate(90deg);
-			}
-
-			.sleep {
-				top: -3px;
-				left: 165px;
-				right: auto;
-				width: 85px;
-				height: 3px;
-				border-radius: 2px 2px 0 0;
-				box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.3);
-			}
-
-			.action {
-				bottom: -3px;
-				left: 165px;
-				top: auto;
-				width: 34px;
-				height: 3px;
-				border-radius: 0 0 2px 2px;
-				box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-			}
-
-			.volume {
-				bottom: -3px;
-				left: 215px;
-				top: auto;
-				width: 58px;
-				height: 3px;
-				border-radius: 0 0 2px 2px;
-				box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+				left: 28.67px;
+				width: 36px;
+				height: 124.67px;
+				margin: -62.33px 0 0;
 
 				&::before {
-					top: 0;
-					left: 70px;
-					width: 58px;
-					height: 3px;
-					border-radius: 0 0 2px 2px;
-					box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+					top: auto;
+					bottom: 0.33px;
+					left: 1px;
+					width: 34px;
+					height: 78px;
+				}
+
+				&::after {
+					top: auto;
+					bottom: 6.67px;
+					left: 7px;
+					width: 22px;
+					height: 65.67px;
+				}
+
+				.camera {
+					top: 13px;
+					right: auto;
+					left: 13px;
 				}
 			}
 
-			.camera-control {
-				top: -3px;
-				left: 380px;
-				right: auto;
-				width: 42px;
-				height: 3px;
-				border-radius: 2px 2px 0 0;
-				box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.3);
+			.action { left: 185px; width: 41.67px; }
+			.volume { left: 257.33px; width: 67.67px; }
+			.sleep { left: 280.67px; width: 106.67px; }
+		}
+	}
+
+	&.iphone18pro {
+		width: 402px;
+		height: 874px;
+		padding: 15.67px 15.83px;
+		border-radius: 80.5px;
+		background: #000;
+		box-shadow:
+			inset 0 0 0 0.667px var(--mf-b1),
+			inset 0 0 0 1.333px var(--mf-b2),
+			inset 0 0 0 2px var(--mf-b3),
+			inset 0 0 0 2.667px var(--mf-b4),
+			inset 0 0 0 3.333px var(--mf-b5),
+			inset 0 0 0 4px var(--mf-b6),
+			inset 0 0 0 4.333px var(--mf-b7),
+			inset 0 0 0 4.667px var(--mf-b8),
+			inset 0 0 0 5px var(--mf-b9),
+			inset 0 0 0 5.333px var(--mf-b10),
+			inset 0 0 0 5.667px var(--mf-b11),
+			inset 0 0 0 6.333px var(--mf-b12),
+			inset 0 0 3px 9.3px var(--mf-glass);
+
+		/* Black (default) */
+		--mf-b1: #141314; --mf-b2: #161516; --mf-b3: #1b191b; --mf-b4: #222022; --mf-b5: #2e2c2e; --mf-b6: #444144;
+		--mf-b7: #605d60; --mf-b8: #747173; --mf-b9: #747174; --mf-b10: #4f4c4f; --mf-b11: #272527; --mf-b12: #232223;
+		--mf-glass: #3d3d3d;
+
+		.screen {
+			border-radius: 63.6px;
+			box-shadow: none;
+		}
+
+		.dynamic-island {
+			position: absolute;
+			top: 30px;
+			left: 50%;
+			width: 94px;
+			height: 36px;
+			margin-left: -47px;
+			border-radius: 18px;
+			background: #000;
+			z-index: 10;
+
+			.camera {
+				top: 13px;
+				right: 13px;
+				box-shadow: 0 0 0 5.5px #080a0c;
 			}
+		}
+
+		/* Earpiece slit between the band and the glass */
+		&::before {
+			top: 6.33px;
+			width: 162px;
+			height: 2.33px;
+			margin-left: -81px;
+			background: #020202;
+		}
+
+		.action { top: 186px; height: 41.67px; }
+		.volume { top: 258.33px; height: 67.67px; }
+		.sleep { top: 281.67px; height: 107px; }
+
+		/* Silver */
+		&.silver {
+			--mf-b1: #727272; --mf-b2: #8c8c8c; --mf-b3: #a4a4a4; --mf-b4: #b9b9b9; --mf-b5: #c9c9c9; --mf-b6: #d7d7d7;
+			--mf-b7: #e2e2e2; --mf-b8: #e8e8e8; --mf-b9: #e8e8e8; --mf-b10: #d4d4d4; --mf-b11: #aaaaaa; --mf-b12: #777777;
+			--mf-glass: #3d3d3d;
+		}
+
+		/* Glacier */
+		&.glacier {
+			--mf-b1: #788598; --mf-b2: #8a97aa; --mf-b3: #9daabe; --mf-b4: #b0bccf; --mf-b5: #bfcada; --mf-b6: #cdd6e5;
+			--mf-b7: #d9e1ed; --mf-b8: #e0e7f1; --mf-b9: #dfe6f0; --mf-b10: #cad4e2; --mf-b11: #a1adbf; --mf-b12: #6f7c8f;
+			--mf-glass: #3d3d3d;
+		}
+
+		/* Burgundy */
+		&.burgundy {
+			--mf-b1: #341d21; --mf-b2: #392024; --mf-b3: #402529; --mf-b4: #4a2c31; --mf-b5: #58373c; --mf-b6: #70494f;
+			--mf-b7: #8d6068; --mf-b8: #a3727a; --mf-b9: #a4737b; --mf-b10: #7e555c; --mf-b11: #503036; --mf-b12: #381f24;
+			--mf-glass: #3d3d3d;
+		}
+
+		/* Gold: Apple's Light Gold (iPhone Air bezel) under the 18 Pro's satin lighting */
+		&.gold {
+			--mf-b1: #797262; --mf-b2: #948c78; --mf-b3: #aea48c; --mf-b4: #c4b99f; --mf-b5: #d3c9b1; --mf-b6: #dfd7c3;
+			--mf-b7: #e8e2d4; --mf-b8: #ede8dc; --mf-b9: #ede8dc; --mf-b10: #ddd4be; --mf-b11: #b4aa91; --mf-b12: #7e7766;
+			--mf-glass: #3d3d3d;
+		}
+
+		/* Natural Titanium (sampled from Apple's iPhone 16 Pro bezel) */
+		&.natural-titanium {
+			--mf-b1: #5e5a53; --mf-b2: #69645e; --mf-b3: #77716b; --mf-b4: #8d8780; --mf-b5: #afa89f; --mf-b6: #d0cac1;
+			--mf-b7: #dfd9d0; --mf-b8: #e4ded5; --mf-b9: #dad4cb; --mf-b10: #b6afa7; --mf-b11: #7d7770; --mf-b12: #403c37;
+			--mf-glass: #393939;
+		}
+
+		&.landscape {
+			width: 874px;
+			height: 402px;
+			padding: 15.83px 15.67px;
+
+			&::before {
+				top: 50%;
+				left: 6.33px;
+				width: 2.33px;
+				height: 162px;
+				margin: -81px 0 0;
+			}
+
+			.dynamic-island {
+				top: 50%;
+				left: 30px;
+				width: 36px;
+				height: 94px;
+				margin: -47px 0 0;
+
+				.camera {
+					top: 13px;
+					right: auto;
+					left: 13px;
+				}
+			}
+
+			.action { left: 186px; width: 41.67px; }
+			.volume { left: 258.33px; width: 67.67px; }
+			.sleep { left: 281.67px; width: 107px; }
+		}
+	}
+
+	/* Anatomy shared by iPhone 17 and iPhone 18 Pro */
+	&.iphone17, &.iphone18pro {
+		&::before {
+			content: '';
+			position: absolute;
+			left: 50%;
+			border-radius: 0 0 2px 2px;
+		}
+
+		&.landscape::before {
+			border-radius: 0 2px 2px 0;
+		}
+
+		.dynamic-island .camera {
+			position: absolute;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background: radial-gradient(circle at 50% 40%, #3b3a8f 0%, #1f1c63 25%, #0d0b30 50%, #12394a 66%, #0a1118 80%, #05070a 100%);
+		}
+
+		/* Buttons: Action + volume on the left, side button on the right.
+		   Camera Control sits flush with the frame, so Apple's renders omit it. */
+		.action, .volume, .sleep {
+			position: absolute;
+			z-index: 0;
+		}
+
+		.action, .volume {
+			left: -3px;
+			width: 3px;
+			border-radius: 1.5px 0 0 1.5px;
+			box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.3), inset 0 -1px 0.5px rgba(255, 255, 255, 0.3);
+			background: linear-gradient(to left, var(--mf-b1) 0%, var(--mf-b3) 25%, var(--mf-b4) 50%, var(--mf-b6) 68%, var(--mf-b8) 80%, var(--mf-b10) 100%);
+		}
+
+		/* Volume down */
+		.volume::before {
+			content: '';
+			position: absolute;
+			top: 85.67px;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border-radius: inherit;
+			background: inherit;
+			box-shadow: inherit;
+		}
+
+		.sleep {
+			right: -2.67px;
+			width: 2.67px;
+			border-radius: 0 1.5px 1.5px 0;
+			box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.3), inset 0 -1px 0.5px rgba(255, 255, 255, 0.3);
+			background: linear-gradient(to right, var(--mf-b1) 0%, var(--mf-b3) 25%, var(--mf-b4) 50%, var(--mf-b6) 68%, var(--mf-b8) 80%, var(--mf-b10) 100%);
+		}
+
+		&.landscape {
+			.action, .volume {
+				top: auto;
+				bottom: -3px;
+				height: 3px;
+				border-radius: 0 0 1.5px 1.5px;
+				box-shadow: inset 1px 0 0.5px rgba(255, 255, 255, 0.3), inset -1px 0 0.5px rgba(255, 255, 255, 0.3);
+				background: linear-gradient(to bottom, var(--mf-b1) 0%, var(--mf-b3) 25%, var(--mf-b4) 50%, var(--mf-b6) 68%, var(--mf-b8) 80%, var(--mf-b10) 100%);
+			}
+
+			.volume::before {
+				top: 0;
+				left: 85.67px;
+			}
+
+			.sleep {
+				top: -2.67px;
+				right: auto;
+				height: 2.67px;
+				border-radius: 1.5px 1.5px 0 0;
+				box-shadow: inset 1px 0 0.5px rgba(255, 255, 255, 0.3), inset -1px 0 0.5px rgba(255, 255, 255, 0.3);
+				background: linear-gradient(to top, var(--mf-b1) 0%, var(--mf-b3) 25%, var(--mf-b4) 50%, var(--mf-b6) 68%, var(--mf-b8) 80%, var(--mf-b10) 100%);
+			}
+		}
+
+		& > .camera, .top-bar, .bottom-bar, .home, .sensor, .speaker, .sensors, .more-sensors, .inner, .inner-shadow {
+			display: none;
 		}
 	}
 
 	/* ============================================
-	   			iPAD PRO 
+	   			iPAD PRO
+	   Apple's iPad Pro (M5) 13" bezel at 0.496 scale (1032×1376pt screen ->
+	   512×683px). The front camera sits on the long edge, which is the right
+	   bezel in portrait.
 	   ============================================ */
 
 	&.ipad-pro {
 		width: 512px;
 		height: 683px;
-		padding: 18px;
-		background: linear-gradient(145deg, #3a3a3a 0%, #2a2a2a 15%, #1e1e1e 50%, #2a2a2a 85%, #3a3a3a 100%);
-		border-radius: 36px;
+		padding: 22.33px;
+		border-radius: 37.25px;
+		background: #000;
 		box-shadow:
-			inset 0 0 0 1px rgba(255, 255, 255, 0.15),
-			inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
-			0 40px 80px -20px rgba(0, 0, 0, 0.5),
-			0 0 0 1px rgba(0, 0, 0, 0.3);
-		position: relative;
+			inset 0 0 0 0.5px var(--mf-b1),
+			inset 0 0 0 1px var(--mf-b2),
+			inset 0 0 0 1.75px var(--mf-b3),
+			inset 0 0 0 2.5px var(--mf-b4),
+			inset 0 0 1px 3px var(--mf-glass);
 
-		/* Outer frame */
-		&::before {
-			content: '';
-			position: absolute;
-			top: 4px;
-			left: 4px;
-			right: 4px;
-			bottom: 4px;
-			border-radius: 33px;
-			background: linear-gradient(145deg, #1a1a1a 0%, #111 100%);
-			z-index: 1;
+		/* Space Black (default) */
+		--mf-b1: #4a484c; --mf-b2: #736e71; --mf-b3: #3b3739; --mf-b4: #2d2b2e; --mf-glass: #1d1d1d;
+		--mf-btn: linear-gradient(to right, #413e40 0%, #2f2d30 15%, #555358 35%, #77767d 55%, #979397 78%, #333134 100%);
+
+		.screen {
+			border-radius: 14.4px;
+			box-shadow: none;
 		}
 
-		/* Inner bezel */
-		&::after {
-			content: '';
-			position: absolute;
-			top: 14px;
-			left: 14px;
-			right: 14px;
-			bottom: 14px;
-			border-radius: 26px;
-			background: #000;
-			z-index: 2;
-		}
-
-		/* Front camera */
+		/* Front camera + ambient light sensor, on the long edge */
 		.camera {
 			position: absolute;
-			top: 24px;
-			left: 50%;
-			transform: translateX(-50%);
-			width: 8px;
-			height: 8px;
-			background: radial-gradient(
-				circle at 35% 35%,
-				#2a2a3a 0%,
-				#1a1a25 50%,
-				#0a0a10 100%
-			);
+			top: 47%;
+			right: 9.4px;
+			width: 5px;
+			height: 5px;
+			margin-top: -2.5px;
 			border-radius: 50%;
+			background: radial-gradient(circle at 50% 45%, #2b2d63 0%, #141433 40%, #0b0d12 70%, #08090b 100%);
 			z-index: 10;
-			box-shadow:
-				inset 0 1px 2px rgba(0, 0, 0, 0.8),
-				0 0 0 1px rgba(50, 50, 60, 0.4);
-
-			&::before {
-				content: '';
-				position: absolute;
-				top: 1px;
-				left: 2px;
-				width: 2px;
-				height: 2px;
-				background: rgba(100, 100, 150, 0.4);
-				border-radius: 50%;
-			}
 		}
 
-		/* Power button - Top right */
+		.sensor {
+			position: absolute;
+			top: 53%;
+			right: 11.4px;
+			width: 1.5px;
+			height: 1.5px;
+			border-radius: 50%;
+			background: #0e0f12;
+			z-index: 10;
+		}
+
+		/* Top button, on the top edge near the right corner */
 		.sleep {
 			position: absolute;
-			top: -3px;
-			right: 80px;
-			width: 50px;
-			height: 3px;
-			background: linear-gradient(to right,
-				#4a4a4a 0%,
-				#3a3a3a 10%,
-				#2a2a2a 50%,
-				#3a3a3a 90%,
-				#4a4a4a 100%
-			);
-			border-radius: 2px 2px 0 0;
-			z-index: 4;
+			top: -1.5px;
+			right: 36px;
+			width: 30.8px;
+			height: 1.5px;
+			border-radius: 1px 1px 0 0;
+			background: linear-gradient(to top, #413e40 0%, #555358 30%, #979397 75%, #333134 100%);
 		}
 
-		/* Volume up - Right side */
-		.volume-up {
+		.volume-up, .volume-down {
 			position: absolute;
-			top: 80px;
-			right: -3px;
-			width: 3px;
-			height: 45px;
-			background: linear-gradient(to bottom,
-				#4a4a4a 0%,
-				#3a3a3a 10%,
-				#2a2a2a 50%,
-				#3a3a3a 90%,
-				#4a4a4a 100%
-			);
-			border-radius: 0 2px 2px 0;
-			z-index: 4;
+			right: -1.5px;
+			width: 1.5px;
+			height: 25.8px;
+			border-radius: 0 1px 1px 0;
+			background: var(--mf-btn);
 		}
 
-		/* Volume down - Right side */
-		.volume-down {
-			position: absolute;
-			top: 135px;
-			right: -3px;
-			width: 3px;
-			height: 45px;
-			background: linear-gradient(to bottom,
-				#4a4a4a 0%,
-				#3a3a3a 10%,
-				#2a2a2a 50%,
-				#3a3a3a 90%,
-				#4a4a4a 100%
-			);
-			border-radius: 0 2px 2px 0;
-			z-index: 4;
-		}
+		.volume-up { top: 50.1px; }
+		.volume-down { top: 81.4px; }
 
-		/* Corner highlights */
-		.corner-highlight {
-			position: absolute;
-			z-index: 1;
-			pointer-events: none;
-			width: 50px;
-			height: 50px;
-
-			&.tl {
-				top: 8px;
-				left: 8px;
-				background: radial-gradient(
-					ellipse at 100% 100%,
-					rgba(255, 255, 255, 0.12) 0%,
-					rgba(255, 255, 255, 0.04) 40%,
-					transparent 70%
-				);
-				border-radius: 30px 0 0 0;
-			}
-
-			&.tr {
-				top: 8px;
-				right: 8px;
-				background: radial-gradient(
-					ellipse at 0% 100%,
-					rgba(255, 255, 255, 0.12) 0%,
-					rgba(255, 255, 255, 0.04) 40%,
-					transparent 70%
-				);
-				border-radius: 0 30px 0 0;
-			}
-
-			&.bl {
-				bottom: 8px;
-				left: 8px;
-				background: radial-gradient(
-					ellipse at 100% 0%,
-					rgba(255, 255, 255, 0.08) 0%,
-					rgba(255, 255, 255, 0.03) 40%,
-					transparent 70%
-				);
-				border-radius: 0 0 0 30px;
-			}
-
-			&.br {
-				bottom: 8px;
-				right: 8px;
-				background: radial-gradient(
-					ellipse at 0% 0%,
-					rgba(255, 255, 255, 0.08) 0%,
-					rgba(255, 255, 255, 0.03) 40%,
-					transparent 70%
-				);
-				border-radius: 0 0 30px 0;
-			}
-		}
-
-		/* Inner edge */
-		.inner-edge {
-			position: absolute;
-			top: 13px;
-			left: 13px;
-			right: 13px;
-			bottom: 13px;
-			border-radius: 27px;
-			border: 1px solid rgba(70, 70, 70, 0.4);
-			z-index: 1;
-			pointer-events: none;
-		}
-
-		/* Screen */
-		.screen {
-			position: relative;
-			width: 100%;
-			height: 100%;
-			background: #fff;
-			border-radius: 22px;
-			z-index: 3;
-			overflow: hidden;
-			box-shadow: 0 0 0 2px #000;
-		}
-
-		/* Hide unused elements */
-		.top-bar, .bottom-bar, .home, .sensor, .speaker, .sensors, .more-sensors, .inner, .inner-shadow, .volume {
-			display: none;
-		}
-
-		/* Silver variant */
+		/* Silver */
 		&.silver {
-			background: linear-gradient(145deg, #e8e8e8 0%, #d0d0d0 15%, #c0c0c0 50%, #d0d0d0 85%, #e8e8e8 100%);
-			box-shadow:
-				inset 0 0 0 1px rgba(255, 255, 255, 0.9),
-				inset 0 1px 0 0 rgba(255, 255, 255, 1),
-				0 40px 80px -20px rgba(0, 0, 0, 0.25),
-				0 0 0 1px rgba(0, 0, 0, 0.08);
-
-			&::before {
-				background: linear-gradient(145deg, #b8b8b8 0%, #a8a8a8 100%);
-			}
-
-			.corner-highlight {
-				&.tl, &.tr {
-					background: radial-gradient(
-						ellipse at 50% 100%,
-						rgba(255, 255, 255, 0.7) 0%,
-						rgba(255, 255, 255, 0.2) 50%,
-						transparent 80%
-					);
-				}
-
-				&.bl, &.br {
-					background: radial-gradient(
-						ellipse at 50% 0%,
-						rgba(255, 255, 255, 0.5) 0%,
-						rgba(255, 255, 255, 0.15) 50%,
-						transparent 80%
-					);
-				}
-			}
-
-			.inner-edge {
-				border-color: rgba(160, 160, 160, 0.5);
-			}
+			--mf-b1: #9e9fa0; --mf-b2: #cccdce; --mf-b3: #959697; --mf-b4: #818283; --mf-glass: #2e2e2e;
+			--mf-btn: linear-gradient(to right, #8d8e8f 0%, #818283 15%, #b1b2b3 35%, #c0c1c2 55%, #c3c4c5 78%, #646566 100%);
 
 			.sleep {
-				background: linear-gradient(to right,
-					#e0e0e0 0%,
-					#c8c8c8 10%,
-					#b8b8b8 50%,
-					#c8c8c8 90%,
-					#e0e0e0 100%
-				);
-			}
-
-			.volume-up, .volume-down {
-				background: linear-gradient(to bottom,
-					#e0e0e0 0%,
-					#c8c8c8 10%,
-					#b8b8b8 50%,
-					#c8c8c8 90%,
-					#e0e0e0 100%
-				);
+				background: linear-gradient(to top, #8d8e8f 0%, #b1b2b3 30%, #c3c4c5 75%, #646566 100%);
 			}
 		}
 
-		/* Landscape mode */
+		/* Landscape: the camera edge goes to the top */
 		&.landscape {
 			width: 683px;
 			height: 512px;
 
-			/* Camera moves to left side in landscape */
 			.camera {
-				top: 50%;
-				left: 24px;
-				transform: translateY(-50%);
+				top: 9.4px;
+				left: 47%;
+				right: auto;
+				margin: 0 0 0 -2.5px;
 			}
 
-			/* Power button moves to right edge */
+			.sensor {
+				top: 11.4px;
+				left: 53%;
+				right: auto;
+			}
+
 			.sleep {
-				top: 80px;
-				right: -3px;
-				left: auto;
-				width: 3px;
-				height: 50px;
-				border-radius: 0 2px 2px 0;
-				background: linear-gradient(to bottom,
-					#4a4a4a 0%,
-					#3a3a3a 10%,
-					#2a2a2a 50%,
-					#3a3a3a 90%,
-					#4a4a4a 100%
-				);
-			}
-
-			/* Volume buttons move to top edge */
-			.volume-up {
-				top: -3px;
+				top: 36px;
+				left: -1.5px;
 				right: auto;
-				left: 80px;
-				width: 45px;
-				height: 3px;
-				border-radius: 2px 2px 0 0;
-				background: linear-gradient(to right,
-					#4a4a4a 0%,
-					#3a3a3a 10%,
-					#2a2a2a 50%,
-					#3a3a3a 90%,
-					#4a4a4a 100%
-				);
+				width: 1.5px;
+				height: 30.8px;
+				border-radius: 1px 0 0 1px;
+				background: linear-gradient(to left, #413e40 0%, #555358 30%, #979397 75%, #333134 100%);
 			}
 
-			.volume-down {
-				top: -3px;
+			.volume-up, .volume-down {
+				top: -1.5px;
 				right: auto;
-				left: 135px;
-				width: 45px;
-				height: 3px;
-				border-radius: 2px 2px 0 0;
-				background: linear-gradient(to right,
-					#4a4a4a 0%,
-					#3a3a3a 10%,
-					#2a2a2a 50%,
-					#3a3a3a 90%,
-					#4a4a4a 100%
-				);
+				width: 25.8px;
+				height: 1.5px;
+				border-radius: 1px 1px 0 0;
+				background: linear-gradient(to top, #413e40 0%, #2f2d30 15%, #555358 35%, #77767d 55%, #979397 78%, #333134 100%);
 			}
 
-			/* Silver landscape buttons */
+			.volume-up { left: 50.1px; }
+			.volume-down { left: 81.4px; }
+
 			&.silver {
 				.sleep {
-					background: linear-gradient(to bottom,
-						#e0e0e0 0%,
-						#c8c8c8 10%,
-						#b8b8b8 50%,
-						#c8c8c8 90%,
-						#e0e0e0 100%
-					);
+					background: linear-gradient(to left, #8d8e8f 0%, #b1b2b3 30%, #c3c4c5 75%, #646566 100%);
 				}
 
 				.volume-up, .volume-down {
-					background: linear-gradient(to right,
-						#e0e0e0 0%,
-						#c8c8c8 10%,
-						#b8b8b8 50%,
-						#c8c8c8 90%,
-						#e0e0e0 100%
-					);
+					background: linear-gradient(to top, #8d8e8f 0%, #818283 15%, #b1b2b3 35%, #c0c1c2 55%, #c3c4c5 78%, #646566 100%);
 				}
 			}
+		}
+
+		.top-bar, .bottom-bar, .home, .speaker, .sensors, .more-sensors, .inner, .inner-shadow, .volume {
+			display: none;
 		}
 	}
 
 	/* ===========================================
-	   				MacBook Pro 
+	   				MacBook Pro
+	   Apple's MacBook Pro (M5) 14" bezel at 0.635 scale (1512×982pt screen ->
+	   960×624px): lid with notch, flat slab base with the thumb scoop, feet.
 	   =========================================== */
 
 	&.macbook-pro {
 		width: 960px;
-		height: 600px;
-		padding: 24px 24px 0;
+		height: 624px;
+		/* The bottom 7px of the lid (and its edge rings) sit behind the base */
+		padding: 17.5px 17.6px 45.4px;
 		margin: 0 auto;
-		background: #333;
-		border-radius: 20px 20px 0 0;
+		border-radius: 30.3px 30.3px 0 0;
+		/* Chin under the display */
+		background: linear-gradient(to top, #060606 7px, #1d1d1d 34px, #000 34px);
+		box-shadow:
+			inset 0 0 0 0.35px var(--mf-b1),
+			inset 0 0 0 0.7px var(--mf-b2),
+			inset 0 0 0 1px var(--mf-b3),
+			inset 0 0 0 2.5px var(--mf-b4),
+			inset 0 0 0 6px #232323;
 
-		/* Inner dark bezel */
-		&::before {
-			width: calc(100% - 8px);
-			height: calc(100% - 4px);
-			position: absolute;
-			content: '';
-			display: block;
-			top: 4px;
-			left: 4px;
-			border-radius: 16px 16px 0 0;
-			background: #0d0d0d;
-			z-index: 1;
-		}
+		/* Space Black (default) */
+		--mf-b1: #3a383a; --mf-b2: #807e80; --mf-b3: #656366; --mf-b4: #424043;
+		--mf-base: linear-gradient(to bottom, #b4b2b5 0, #686669 0.7px, #5d5b5e 20%, #5f5d60 42%, #4e4c4f 58%, #3c3a3d 68%, #2a282a 78%, #1f1d1f 86%, #2a282b 94%, #3e3c3f 100%);
+		--mf-scoop: linear-gradient(to bottom, #a29fa3 0%, #8f8d90 45%, #747275 100%);
+		--mf-scoop-top: #a29fa3;
+		--mf-foot: linear-gradient(to bottom, #1c1a1c 0%, #3a383b 70%, #2a282b 100%);
 
 		.screen {
-			border-radius: 10px 10px 0 0;
+			border-radius: 11.9px 11.9px 0 0;
 			box-shadow: none;
 		}
 
-		/* Notch - Camera housing */
+		/* Notch with the camera; ::before/::after are the fillets into the bezel */
 		.notch {
 			position: absolute;
-			width: 180px;
-			height: 24px;
-			top: 24px;
+			top: 17.5px;
 			left: 50%;
-			margin-left: -90px;
+			width: 118.1px;
+			height: 20.3px;
+			margin-left: -59.05px;
+			border-radius: 0 0 6.3px 6.3px;
+			background: #000;
 			z-index: 4;
-			background: #0d0d0d;
-			border-bottom-left-radius: 16px;
-			border-bottom-right-radius: 16px;
 
-			&::before,
-			&::after {
+			&::before, &::after {
 				content: '';
-				height: 8px;
 				position: absolute;
 				top: 0;
-				width: 8px;
-			}
-
-			&::after {
-				background: radial-gradient(circle at bottom left, transparent 0, transparent 70%, #0d0d0d 70%, #0d0d0d 100%);
-				left: -8px;
+				width: 3.2px;
+				height: 3.2px;
 			}
 
 			&::before {
-				background: radial-gradient(circle at bottom right, transparent 0, transparent 70%, #0d0d0d 70%, #0d0d0d 100%);
-				right: -8px;
+				left: -3.2px;
+				background: radial-gradient(circle at 0 100%, transparent 3.2px, #000 3.2px);
+			}
+
+			&::after {
+				right: -3.2px;
+				background: radial-gradient(circle at 100% 100%, transparent 3.2px, #000 3.2px);
 			}
 
 			.camera {
-				background: #3c3d3d;
-				width: 8px;
-				height: 8px;
 				position: absolute;
-				top: 8px;
+				top: 5.2px;
 				left: 50%;
-				margin-left: -4px;
-				border-radius: 100%;
-				z-index: 5;
-
-				&::before {
-					content: '';
-					width: 4px;
-					height: 4px;
-					background: radial-gradient(circle at 30% 30%, #1a1a2a 0%, #0a0a10 100%);
-					border-radius: 100%;
-					position: absolute;
-					top: 50%;
-					left: 50%;
-					margin-top: -2px;
-					margin-left: -2px;
-				}
+				width: 6.3px;
+				height: 6.3px;
+				margin: -3.15px 0 0 -3.15px;
+				border-radius: 50%;
+				background: radial-gradient(circle at 50% 50%, #2f4f86 0, #1a2440 25%, #0e1012 45%);
 			}
 		}
 
-		/* Keyboard hinge / base */
+		/* Base: flat slab, wider than the lid, with the thumb scoop */
 		.top-bar {
-			width: calc(100% + 2 * 70px);
-			height: 40px;
 			position: absolute;
-			content: '';
-			display: block;
-			top: 624px;
-			left: -70px;
-			border-bottom-left-radius: 90px 18px;
-			border-bottom-right-radius: 90px 18px;
-			background: #333;
-			box-shadow: inset 0px -4px 13px 3px rgba(0, 0, 0, 0.6);
+			top: calc(100% - 7px);
+			left: -106px;
+			width: calc(100% + 212px);
+			height: 42.2px;
+			border-radius: 3px 3px 19px 19px;
+			background: var(--mf-base);
+			z-index: 5;
 
+			/* Flared top corners of the thumb scoop */
 			&::before {
-				width: 100%;
-				height: 10px;
 				content: '';
-				display: block;
+				position: absolute;
 				top: 0;
-				left: 0;
-				background: linear-gradient(to bottom, #444 0%, #2a2a2a 100%);
-				border-bottom: 1px solid #1a1a1a;
-				position: relative;
+				left: 50%;
+				width: 200px;
+				height: 9px;
+				margin-left: -100px;
+				background:
+					radial-gradient(circle at 0 100%, transparent 9px, var(--mf-scoop-top) 9.5px) left top / 9px 9px no-repeat,
+					radial-gradient(circle at 100% 100%, transparent 9px, var(--mf-scoop-top) 9.5px) right top / 9px 9px no-repeat;
 			}
 
 			&::after {
-				width: 14%;
-				height: 6px;
 				content: '';
-				display: block;
-				top: 10px;
-				background: #222;
 				position: absolute;
-				margin-left: auto;
-				margin-right: auto;
-				left: 0;
-				right: 0;
-				border-radius: 0 0 10px 10px;
-				box-shadow: inset 0px -2px 6px rgba(0, 0, 0, 0.6);
+				top: 0;
+				left: 50%;
+				width: 182px;
+				height: 14.9px;
+				margin-left: -91px;
+				border-radius: 0 0 9px 9px;
+				background: var(--mf-scoop);
+				box-shadow: inset 0 -1px 1.5px rgba(0, 0, 0, 0.18);
 			}
 		}
 
-		/* Side feet */
+		/* Feet */
 		.bottom-bar {
-			background: transparent;
-			width: calc(100% + 2 * 70px);
-			height: 26px;
 			position: absolute;
-			content: '';
-			display: block;
-			top: 624px;
-			left: -70px;
+			top: calc(100% + 34.5px);
+			left: -40px;
+			width: calc(100% + 80px);
+			height: 7px;
+			background: none;
 
-			&::before,
-			&::after {
-				height: calc(100% - 2px);
-				width: 80px;
+			&::before, &::after {
 				content: '';
-				display: block;
-				top: 0;
 				position: absolute;
+				top: 0;
+				width: 80px;
+				height: 100%;
+				border-radius: 0 0 5px 5px;
+				background: var(--mf-foot);
+				box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.12);
 			}
 
-			&::before {
-				left: 0;
-				background: linear-gradient(to right, #2a2a2a 0%, #444 5%, #555 14%, #3a3a3a 41%, #4a4a4a 80%, #4a4a4a 100%);
-			}
-
-			&::after {
-				right: 0;
-				background: linear-gradient(to right, #4a4a4a 0%, #4a4a4a 20%, #3a3a3a 59%, #555 86%, #444 95%, #2a2a2a 100%);
-			}
+			&::before { left: 0; }
+			&::after { right: 0; }
 		}
 
-		.home {
-			display: none;
-		}
-
-		/* Hide other unused elements */
-		.volume,
-		.sleep,
-		.sensor,
-		.speaker,
-		.sensors,
-		.more-sensors,
-		.inner-shadow,
-		.inner {
-			display: none;
-		}
-
-		/* Silver color variant */
+		/* Silver */
 		&.silver {
-			background: #c5c5c5;
+			--mf-b1: #d8d9db; --mf-b2: #b7b8ba; --mf-b3: #9a9b9d; --mf-b4: #9c9d9f;
+			--mf-base: linear-gradient(to bottom, #f0f1f3 0, #d6d7d9 0.7px, #d0d1d3 20%, #cecfd1 42%, #c3c4c6 55%, #a8a9ab 64%, #8e8f91 74%, #858688 84%, #9fa0a2 92%, #c9cacc 100%);
+			--mf-scoop: linear-gradient(to bottom, #e6e7e9 0%, #ebeced 50%, #f3f4f6 100%);
+			--mf-scoop-top: #e6e7e9;
+			--mf-foot: linear-gradient(to bottom, #6e6f71 0%, #a3a4a6 70%, #8e8f91 100%);
+		}
 
-			&::before {
-				background: #0d0d0d;
-			}
-
-			.notch {
-				background: #0d0d0d;
-
-				&::after {
-					background: radial-gradient(circle at bottom left, transparent 0, transparent 70%, #0d0d0d 70%, #0d0d0d 100%);
-				}
-
-				&::before {
-					background: radial-gradient(circle at bottom right, transparent 0, transparent 70%, #0d0d0d 70%, #0d0d0d 100%);
-				}
-			}
-
-			.top-bar {
-				background: #c5c5c5;
-
-				&::before {
-					background: linear-gradient(to bottom, #d8d8d8 0%, #b5b5b5 100%);
-					border-bottom-color: #a0a0a0;
-				}
-
-				&::after {
-					background: #a0a0a0;
-					box-shadow: inset 0px -2px 6px rgba(0, 0, 0, 0.3);
-				}
-			}
-
-			.bottom-bar::before {
-				background: linear-gradient(to right, #909090 0%, #b5b5b5 5%, #d0d0d0 14%, #a5a5a5 41%, #c0c0c0 80%, #c0c0c0 100%);
-			}
-
-			.bottom-bar::after {
-				background: linear-gradient(to right, #c0c0c0 0%, #c0c0c0 20%, #a5a5a5 59%, #d0d0d0 86%, #b5b5b5 95%, #909090 100%);
-			}
+		.home, .volume, .sleep, .sensor, .speaker, .sensors, .more-sensors, .inner-shadow, .inner, & > .camera {
+			display: none;
 		}
 	}
 
 	/* ===========================================
 	   			GOOGLE PIXEL 10
+	   412×924 CSS viewport (Chrome DevTools' Pixel 10 entry). Bezel, corner
+	   radii, punch-hole and buttons follow Google's specs and product renders.
 	   =========================================== */
 
 	&.pixel10 {
 		width: 412px;
-		height: 915px;
-		padding: 12px;
-		background: #1a1a1a;
-		border-radius: 48px;
+		height: 924px;
+		padding: 21.5px;
+		border-radius: 74px;
+		background: #000;
+		/* Satin aluminium frame, then the glass edge fading into the black border */
+		box-shadow:
+			inset 0 0 0 0.75px rgba(0, 0, 0, 0.3),
+			inset 0 0 2px 2.5px rgba(255, 255, 255, 0.16),
+			inset 0 0 0 6px var(--mf-frame),
+			inset 0 0 3px 7.5px #1c1c1c;
 
-		/* Inner frame */
-		&::before {
-			width: calc(100% - 8px);
-			height: calc(100% - 8px);
-			position: absolute;
-			content: '';
-			display: block;
-			top: 4px;
-			left: 4px;
-			border-radius: 44px;
-			background: #0d0d0d;
-			z-index: 1;
-		}
-
-		/* Subtle inner glow */
-		&::after {
-			width: calc(100% - 16px);
-			height: calc(100% - 16px);
-			position: absolute;
-			content: '';
-			display: block;
-			top: 8px;
-			left: 8px;
-			border-radius: 40px;
-			box-shadow: inset 0 0 8px 0 rgba(255, 255, 255, 0.05);
-			z-index: 2;
-			pointer-events: none;
-		}
+		/* Obsidian (default) */
+		--mf-frame: #4a4d4d;
 
 		.screen {
-			border-radius: 38px;
+			border-radius: 50px;
 			box-shadow: none;
 		}
 
-		/* Punch-hole camera - top center */
+		/* Punch-hole camera, centred 29px below the top of the screen */
 		.camera {
-			width: 12px;
-			height: 12px;
 			position: absolute;
-			top: 24px;
+			top: 36.5px;
 			left: 50%;
-			margin-left: -6px;
-			background: #101010;
-			border-radius: 100%;
+			width: 28px;
+			height: 28px;
+			margin-left: -14px;
+			border-radius: 50%;
+			background: radial-gradient(circle at 50% 50%, #2a2c3c 0, #15161f 22%, #2b2b2e 38%, #0b0b0c 50%, #000 70%);
 			z-index: 5;
-			box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.8);
-
-			&::before {
-				content: '';
-				width: 6px;
-				height: 6px;
-				position: absolute;
-				top: 3px;
-				left: 3px;
-				background: radial-gradient(circle at 30% 30%, #2a2a3a 0%, #0a0a10 100%);
-				border-radius: 100%;
-			}
 		}
 
-		/* Power button - right side */
-		.sleep {
-			width: 3px;
-			height: 72px;
+		/* Power, then the volume rocker, both on the right */
+		.sleep, .volume {
 			position: absolute;
-			top: 180px;
 			right: -3px;
-			background: #1a1a1a;
-			border-radius: 0 2px 2px 0;
-		}
-
-		/* Volume rocker - right side */
-		.volume {
 			width: 3px;
-			height: 100px;
-			position: absolute;
-			top: 260px;
-			right: -3px;
-			background: #1a1a1a;
 			border-radius: 0 2px 2px 0;
+			background: var(--mf-frame);
+			box-shadow: inset -1px 0 1px rgba(255, 255, 255, 0.2), inset 1px 0 1px rgba(0, 0, 0, 0.25);
 		}
 
-		.top-bar,
-		.bottom-bar,
-		.sensor,
-		.speaker,
-		.sensors,
-		.more-sensors,
-		.inner-shadow,
-		.home,
-		.inner {
-			display: none;
-		}
+		.sleep { top: 269.7px; height: 75.3px; }
+		.volume { top: 390.6px; height: 131.7px; }
 
-		/* Porcelain (White) */
-		&.porcelain {
-			background: #e8e5e1;
+		&.frost { --mf-frame: #d1d8ed; }
+		&.indigo { --mf-frame: #5585e0; }
+		&.lemongrass { --mf-frame: #dfe1c3; }
 
-			&::before {
-				background: #0d0d0d;
-			}
+		/* Legacy colours (Pixel 8/9 finishes), kept for compatibility */
+		&.porcelain { --mf-frame: #e8e5e1; }
+		&.mint { --mf-frame: #afdbc5; }
+		&.rose { --mf-frame: #e8c4c4; }
 
-			.sleep,
-			.volume {
-				background: #d5d2ce;
-			}
-		}
-
-		/* Mint */
-		&.mint {
-			background: #afdbc5;
-
-			&::before {
-				background: #0d0d0d;
-			}
-
-			.sleep,
-			.volume {
-				background: #9bcdb5;
-			}
-		}
-
-		/* Rose */
-		&.rose {
-			background: #e8c4c4;
-
-			&::before {
-				background: #0d0d0d;
-			}
-
-			.sleep,
-			.volume {
-				background: #dab5b5;
-			}
-		}
-
-		/* Landscape mode */
+		/* Landscape: rotated counter-clockwise, camera on the left */
 		&.landscape {
-			width: 915px;
+			width: 924px;
 			height: 412px;
 
 			.camera {
 				top: 50%;
-				left: 24px;
-				margin-top: -6px;
-				margin-left: 0;
+				left: 36.5px;
+				margin: -14px 0 0;
 			}
 
-			.sleep {
-				height: 3px;
-				width: 72px;
+			.sleep, .volume {
 				top: -3px;
-				left: 180px;
 				right: auto;
+				height: 3px;
 				border-radius: 2px 2px 0 0;
+				box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), inset 0 -1px 1px rgba(0, 0, 0, 0.25);
 			}
 
-			.volume {
-				height: 3px;
-				width: 100px;
-				top: -3px;
-				left: 260px;
-				right: auto;
-				border-radius: 2px 2px 0 0;
-			}
+			.sleep { left: 269.7px; width: 75.3px; }
+			.volume { left: 390.6px; width: 131.7px; }
+		}
+
+		.top-bar, .bottom-bar, .sensor, .speaker, .sensors, .more-sensors, .inner-shadow, .home, .inner {
+			display: none;
 		}
 	}
 
 	/* ===========================================
 	   			SAMSUNG GALAXY S25
+	   360×780 CSS viewport (1080×2340 at DPR 3). Bezel, corner radii,
+	   punch-hole and buttons follow Samsung's specs and product renders.
 	   =========================================== */
 
 	&.galaxy-s25 {
-		width: 412px;
-		height: 892px;
-		padding: 10px;
-		background: #1e1e1e;
-		border-radius: 42px;
-		box-shadow: inset 0 0 2px 0 rgba(255, 255, 255, 0.15);
+		width: 360px;
+		height: 780px;
+		padding: 12.5px;
+		border-radius: 49px;
+		background: #000;
+		/* Matte aluminium frame, then the glass edge */
+		box-shadow:
+			inset 0 0 0 0.75px rgba(0, 0, 0, 0.3),
+			inset 0 0 1.5px 1.5px rgba(255, 255, 255, 0.14),
+			inset 0 0 0 5.5px var(--mf-frame),
+			inset 0 0 2px 6.5px #1a1a1a;
 
-		/* Metal frame effect */
-		&::before {
-			width: calc(100% - 6px);
-			height: calc(100% - 6px);
-			position: absolute;
-			content: '';
-			display: block;
-			top: 3px;
-			left: 3px;
-			border-radius: 40px;
-			background: #0a0a0a;
-			z-index: 1;
-		}
-
-		/* Inner bezel */
-		.inner {
-			width: 100%;
-			height: calc(100% - 4px);
-			position: absolute;
-			top: 2px;
-			left: 0;
-			border-radius: 42px;
-			border-top: 2px solid rgba(255, 255, 255, 0.1);
-			border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-			background: transparent;
-			z-index: 1;
-			box-shadow: inset 0 0 4px 0 rgba(255, 255, 255, 0.1);
-			pointer-events: none;
-		}
+		/* Blueblack (default) */
+		--mf-frame: #3a3e48;
 
 		.screen {
 			border-radius: 36px;
 			box-shadow: none;
 		}
 
-		/* Punch-hole camera - top center */
+		/* Punch-hole camera, centred 19px below the top of the screen */
 		.camera {
-			width: 10px;
-			height: 10px;
 			position: absolute;
-			top: 22px;
+			top: 23.5px;
 			left: 50%;
-			margin-left: -5px;
-			background: #050505;
-			border-radius: 100%;
+			width: 16px;
+			height: 16px;
+			margin-left: -8px;
+			border-radius: 50%;
+			background: radial-gradient(circle at 50% 50%, #1e2030 0, #0d0e16 35%, #030304 60%, #000 100%);
 			z-index: 5;
-			box-shadow: 0 0 0 2px #0a0a0a;
-
-			&::before {
-				content: '';
-				width: 5px;
-				height: 5px;
-				position: absolute;
-				top: 2.5px;
-				left: 2.5px;
-				background: radial-gradient(circle at 30% 30%, #1a1a2a 0%, #050510 100%);
-				border-radius: 100%;
-			}
 		}
 
-		/* Speaker grille - top */
+		/* Earpiece slit between the frame and the glass */
 		.speaker {
-			width: 40px;
-			height: 4px;
 			position: absolute;
-			top: 14px;
+			top: 5.5px;
 			left: 50%;
-			margin-left: -20px;
+			width: 55px;
+			height: 1.5px;
+			margin-left: -27.5px;
+			border-radius: 0 0 1.5px 1.5px;
 			background: #0a0a0a;
-			border-radius: 4px;
 			z-index: 4;
 		}
 
-		/* Power button */
-		.sleep {
-			width: 3px;
-			height: 54px;
+		/* Volume, then the side key, both on the right */
+		.sleep, .volume {
 			position: absolute;
-			top: 220px;
-			right: -3px;
-			background: #2a2a2a;
+			right: -2.5px;
+			width: 2.5px;
 			border-radius: 0 2px 2px 0;
+			background: var(--mf-frame);
+			box-shadow: inset -1px 0 1px rgba(255, 255, 255, 0.18), inset 1px 0 1px rgba(0, 0, 0, 0.25);
 		}
 
-		/* Volume buttons - left side */
-		.volume {
-			width: 3px;
-			height: 80px;
-			position: absolute;
-			top: 180px;
-			left: -3px;
-			background: #2a2a2a;
-			border-radius: 2px 0 0 2px;
+		.volume { top: 146.7px; height: 109.4px; }
+		.sleep { top: 308.9px; height: 59.9px; }
 
-			&::before {
-				content: '';
-				width: 3px;
-				height: 80px;
-				position: absolute;
-				top: 100px;
-				left: 0;
-				background: inherit;
-				border-radius: 2px 0 0 2px;
-			}
-		}
+		&.icy-blue { --mf-frame: #bdc4d5; }
+		&.navy { --mf-frame: #283a5e; }
+		&.mint { --mf-frame: #bdcfc3; }
+		&.silver-shadow, &.silver { --mf-frame: #a7a8ab; }
+		&.coral-red { --mf-frame: #ea646b; }
+		&.pink-gold { --mf-frame: #e8d7cd; }
 
-		.top-bar,
-		.bottom-bar,
-		.sensor,
-		.sensors,
-		.more-sensors,
-		.inner-shadow,
-		.home {
-			display: none;
-		}
+		/* Legacy colour (Galaxy S21-S23 finish), kept for compatibility */
+		&.phantom-black { --mf-frame: #2a2a2c; }
 
-		/* Shadow overlay for depth */
-		.overflow {
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			top: 0;
-			left: 0;
-			border-radius: 42px;
-			overflow: hidden;
-			pointer-events: none;
-		}
-
-		.shadow {
-			border-radius: 100%;
-			width: 80px;
-			height: 80px;
-			position: absolute;
-			background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, transparent 60%);
-		}
-
-		.shadow--tl { top: -15px; left: -15px; }
-		.shadow--tr { top: -15px; right: -15px; }
-		.shadow--bl { bottom: -15px; left: -15px; }
-		.shadow--br { bottom: -15px; right: -15px; }
-
-		/* Icy Blue */
-		&.icy-blue {
-			background: #c5d5e0;
-			box-shadow: inset 0 0 2px 0 rgba(255, 255, 255, 0.4);
-
-			&::before {
-				background: #0a0a0a;
-			}
-
-			.inner {
-				border-top-color: rgba(255, 255, 255, 0.3);
-				border-bottom-color: rgba(255, 255, 255, 0.3);
-			}
-
-			.sleep,
-			.volume {
-				background: #a5b8c8;
-			}
-		}
-
-		/* Navy */
-		&.navy {
-			background: #1a2a40;
-
-			.sleep,
-			.volume {
-				background: #152235;
-			}
-		}
-
-		/* Silver */
-		&.silver {
-			background: #c0c0c0;
-			box-shadow: inset 0 0 2px 0 rgba(255, 255, 255, 0.5);
-
-			&::before {
-				background: #0a0a0a;
-			}
-
-			.inner {
-				border-top-color: rgba(255, 255, 255, 0.4);
-				border-bottom-color: rgba(255, 255, 255, 0.4);
-			}
-
-			.sleep,
-			.volume {
-				background: #a8a8a8;
-			}
-		}
-
-		/* Mint */
-		&.mint {
-			background: #a8d8c8;
-			box-shadow: inset 0 0 2px 0 rgba(255, 255, 255, 0.4);
-
-			&::before {
-				background: #0a0a0a;
-			}
-
-			.sleep,
-			.volume {
-				background: #90c5b5;
-			}
-		}
-
-		/* Landscape mode */
+		/* Landscape: rotated counter-clockwise, camera on the left */
 		&.landscape {
-			width: 892px;
-			height: 412px;
+			width: 780px;
+			height: 360px;
 
 			.camera {
 				top: 50%;
-				left: 22px;
-				margin-top: -5px;
-				margin-left: 0;
+				left: 23.5px;
+				margin: -8px 0 0;
 			}
 
 			.speaker {
-				width: 4px;
-				height: 40px;
 				top: 50%;
-				left: 14px;
-				margin-top: -20px;
-				margin-left: 0;
+				left: 5.5px;
+				width: 1.5px;
+				height: 55px;
+				margin: -27.5px 0 0;
+				border-radius: 0 1.5px 1.5px 0;
 			}
 
-			.sleep {
-				height: 3px;
-				width: 54px;
-				top: -3px;
-				left: 220px;
+			.sleep, .volume {
+				top: -2.5px;
 				right: auto;
+				height: 2.5px;
 				border-radius: 2px 2px 0 0;
+				box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.18), inset 0 -1px 1px rgba(0, 0, 0, 0.25);
 			}
 
-			.volume {
-				height: 3px;
-				width: 80px;
-				top: 100%;
-				left: 180px;
-				border-radius: 0 0 2px 2px;
+			.volume { left: 146.7px; width: 109.4px; }
+			.sleep { left: 308.9px; width: 59.9px; }
+		}
 
-				&::before {
-					height: 3px;
-					width: 80px;
-					top: 0;
-					left: 100px;
-					border-radius: 0 0 2px 2px;
-				}
-			}
+		.top-bar, .bottom-bar, .sensor, .sensors, .more-sensors, .inner-shadow, .home, .inner {
+			display: none;
 		}
 	}
 }

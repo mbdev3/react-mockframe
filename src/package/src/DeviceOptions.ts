@@ -52,23 +52,36 @@ export const DeviceOptions = {
         device: 'iphone17',
         colors: ['black', 'white', 'mist-blue', 'sage', 'lavender', 'cosmic-orange', 'deep-blue'] as const,
         hasLandscape: true,
-        width: 393,
-        height: 852,
+        width: 402,
+        height: 874,
+    }),
+    ['iPhone 18 Pro']: defineDevice({
+        device: 'iphone18pro',
+        // 'gold' and 'natural-titanium' are extras sampled from other Apple bezels (iPhone Air, iPhone 16 Pro)
+        colors: ['black', 'silver', 'glacier', 'burgundy', 'gold', 'natural-titanium'] as const,
+        hasLandscape: true,
+        width: 402,
+        height: 874,
     }),
     // Modern Android
     ['Pixel 10']: defineDevice({
         device: 'pixel10',
-        colors: ['obsidian', 'porcelain', 'mint', 'rose'] as const,
+        // 'porcelain', 'mint' and 'rose' are older Pixel finishes, kept for compatibility
+        colors: ['obsidian', 'frost', 'indigo', 'lemongrass', 'porcelain', 'mint', 'rose'] as const,
         hasLandscape: true,
         width: 412,
-        height: 915,
+        height: 924,
     }),
     ['Galaxy S25']: defineDevice({
         device: 'galaxy-s25',
-        colors: ['phantom-black', 'icy-blue', 'navy', 'silver', 'mint'] as const,
+        // 'phantom-black' (Galaxy S21-S23) and 'silver' (alias of 'silver-shadow') are kept for compatibility
+        colors: [
+            'blue-black', 'icy-blue', 'navy', 'mint', 'silver-shadow', 'coral-red', 'pink-gold',
+            'phantom-black', 'silver',
+        ] as const,
         hasLandscape: true,
-        width: 412,
-        height: 892,
+        width: 360,
+        height: 780,
     }),
     // Tablets
     ['iPad Mini']: defineDevice({
@@ -80,7 +93,8 @@ export const DeviceOptions = {
     }),
     ['iPad Pro']: defineDevice({
         device: 'ipad-pro',
-        colors: ['space-gray', 'silver'] as const,
+        // 'space-gray' is kept as an alias of 'space-black' (the M4/M5 name)
+        colors: ['space-black', 'space-gray', 'silver'] as const,
         hasLandscape: true,
         width: 512,
         height: 683,
@@ -95,10 +109,11 @@ export const DeviceOptions = {
     }),
     ['MacBook Pro']: defineDevice({
         device: 'macbook-pro',
-        colors: ['space-gray', 'silver'] as const,
+        // 'space-gray' is kept as an alias of 'space-black' (the M3-M5 name)
+        colors: ['space-black', 'space-gray', 'silver'] as const,
         hasLandscape: false,
         width: 960,
-        height: 600,
+        height: 624,
     }),
 }
 

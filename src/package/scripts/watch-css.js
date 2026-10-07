@@ -6,14 +6,17 @@ const srcDir = path.join(__dirname, '../css');
 
 console.log(`Watching ${srcDir} for changes...`);
 
-const watcher = watch(path.join(srcDir, '**/*.css'), {
+// chokidar 4 dropped glob support, so watch the directory and filter by extension
+const watcher = watch(srcDir, {
   ignoreInitial: false,
 });
 
-function build() {
+function build(file) {
+  if (!file.endsWith('.css')) return;
   console.log('Rebuilding CSS...');
   try {
-    execSync('node scripts/build-css.js', {
+    // Both the full stylesheet and the per-family bundles
+    execSync('node scripts/build-css.js && node scripts/build-css-modules.js', {
       cwd: path.join(__dirname, '..'),
       stdio: 'inherit',
     });

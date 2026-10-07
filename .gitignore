@@ -1,5 +1,7 @@
 md
 notes/
+# copied from the root at build time (scripts/gen-readme.js)
+src/package/LICENSE
 node_modules
 .DS_Store
 dist

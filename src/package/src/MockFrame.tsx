@@ -18,7 +18,7 @@
  * @module MockFrame
  */
 
-import React, { useMemo } from 'react'
+import * as React from 'react'
 
 import type {
   MockFrameProps,
@@ -97,19 +97,6 @@ function cx(...classes: (string | false | null | undefined)[]): string {
    ============================================================================= */
 
 /**
- * Corner highlight elements used by modern devices (iPhone 17, iPad Pro).
- * Creates subtle reflections at each corner of the device frame.
- */
-const CornerHighlights = () => (
-  <>
-    <div className="corner-highlight tl" />
-    <div className="corner-highlight tr" />
-    <div className="corner-highlight bl" />
-    <div className="corner-highlight br" />
-  </>
-)
-
-/**
  * Overflow shadow elements for edge-to-edge displays.
  * Creates depth shadows at each corner of the screen area.
  */
@@ -120,6 +107,21 @@ const OverflowShadows = () => (
     <div className="shadow shadow--bl" />
     <div className="shadow shadow--br" />
   </div>
+)
+
+/**
+ * Dynamic Island + Action button shared by the iPhone 17 and iPhone 18 Pro.
+ * The side and volume buttons reuse the common `.sleep` / `.volume` elements.
+ */
+const DynamicIslandAnatomy = ({ hideNotch }: { hideNotch?: boolean }) => (
+  <>
+    {!hideNotch && (
+      <div className="dynamic-island">
+        <div className="camera" />
+      </div>
+    )}
+    <div className="action" />
+  </>
 )
 
 /**
@@ -138,29 +140,12 @@ const DeviceAnatomy: Partial<Record<DeviceName, (hideNotch?: boolean) => React.R
     </>
   ),
 
-  'iPhone 17': (hideNotch) => (
-    <>
-      <div className="antenna top-left" />
-      <div className="antenna top-right" />
-      <div className="antenna bottom-left" />
-      <div className="antenna bottom-right" />
-      <CornerHighlights />
-      <div className="inner-edge" />
-      {!hideNotch && (
-        <div className="dynamic-island">
-          <div className="indicator" />
-          <div className="camera" />
-        </div>
-      )}
-      <div className="action" />
-      <div className="camera-control" />
-    </>
-  ),
+  'iPhone 17': (hideNotch) => <DynamicIslandAnatomy hideNotch={hideNotch} />,
+
+  'iPhone 18 Pro': (hideNotch) => <DynamicIslandAnatomy hideNotch={hideNotch} />,
 
   'iPad Pro': () => (
     <>
-      <CornerHighlights />
-      <div className="inner-edge" />
       <div className="volume-up" />
       <div className="volume-down" />
     </>
@@ -175,8 +160,6 @@ const DeviceAnatomy: Partial<Record<DeviceName, (hideNotch?: boolean) => React.R
       )}
     </>
   ),
-
-  'Galaxy S25': () => <OverflowShadows />,
 }
 
 /**
@@ -292,7 +275,7 @@ export interface CustomMockFrameProps extends React.HTMLAttributes<HTMLDivElemen
  * </CustomMockFrame>
  * ```
  */
-export const CustomMockFrame = React.memo<CustomMockFrameProps>(
+export const CustomMockFrame = React.memo(React.forwardRef<HTMLDivElement, CustomMockFrameProps>(
   function CustomMockFrame({
     children,
     width,
@@ -310,9 +293,9 @@ export const CustomMockFrame = React.memo<CustomMockFrameProps>(
     className,
     style: styleProp,
     ...restProps
-  }) {
+  }, ref) {
     // Normalize bezel width to { top, right, bottom, left } format
-    const bezel = useMemo(() => {
+    const bezel = React.useMemo(() => {
       if (typeof bezelWidth === 'number') {
         return { top: bezelWidth, right: bezelWidth, bottom: bezelWidth, left: bezelWidth }
       }
@@ -326,7 +309,7 @@ export const CustomMockFrame = React.memo<CustomMockFrameProps>(
     }, [bezelWidth])
 
     // Calculate screen corner radius (inset from frame radius by bezel width)
-    const effectiveScreenRadius = useMemo(
+    const effectiveScreenRadius = React.useMemo(
       () =>
         screenBorderRadius ??
         Math.max(0, borderRadius - Math.max(bezel.top, bezel.right, bezel.bottom, bezel.left)),
@@ -334,7 +317,7 @@ export const CustomMockFrame = React.memo<CustomMockFrameProps>(
     )
 
     // Compute outer frame styles
-    const frameStyle = useMemo((): React.CSSProperties => {
+    const frameStyle = React.useMemo((): React.CSSProperties => {
       const frameWidth = width + bezel.left + bezel.right
       const frameHeight = height + bezel.top + bezel.bottom
 
@@ -354,7 +337,7 @@ export const CustomMockFrame = React.memo<CustomMockFrameProps>(
     }, [width, height, bezel, borderRadius, bezelColor, zoom, animated, landscape, styleProp])
 
     // Compute screen area styles (positioned inside the bezel)
-    const screenStyle = useMemo(
+    const screenStyle = React.useMemo(
       (): React.CSSProperties => ({
         position: 'absolute',
         top: landscape ? bezel.left : bezel.top,
@@ -369,14 +352,14 @@ export const CustomMockFrame = React.memo<CustomMockFrameProps>(
     )
 
     return (
-      <div className={cx(frameClassName, className)} style={frameStyle} {...restProps}>
+      <div ref={ref} className={cx(frameClassName, className)} style={frameStyle} {...restProps}>
         <div className={screenClassName} style={screenStyle}>
           {children}
         </div>
       </div>
     )
   }
-)
+))
 
 /* =============================================================================
    MOCK FRAME COMPONENT
@@ -417,7 +400,7 @@ export const CustomMockFrame = React.memo<CustomMockFrameProps>(
  *
  * @see {@link DeviceOptions} for available devices and their configurations
  */
-export const MockFrame = React.memo<MockFrameProps>(function MockFrame(props) {
+const MockFrameBase = React.forwardRef<HTMLDivElement, MockFrameProps>(function MockFrame(props, ref) {
   const {
     children, device, width, height, zoom, animated, hideNotch,
     className: userClassName, style: userStyle, ...restProps
@@ -430,24 +413,30 @@ export const MockFrame = React.memo<MockFrameProps>(function MockFrame(props) {
   const color = 'color' in props ? props.color : undefined
   const landscape = 'landscape' in props ? props.landscape : undefined
 
+  // `device` can come from untyped data at runtime, so the lookup may miss
+  const config: { device: string, hasLandscape: boolean } | undefined = DeviceOptions[device]
+  const isLandscape = Boolean(landscape && config?.hasLandscape)
+
   // Compute inline styles for dimensions and transforms
-  const style = useMemo((): React.CSSProperties => {
-    const isLandscape = landscape && DeviceOptions[device].hasLandscape
-    return {
-      width: isLandscape ? height : width,
-      height: isLandscape ? width : height,
-      transform: zoom !== undefined ? `scale(${zoom})` : undefined,
-      transition: animated ? DEFAULTS.TRANSITION : undefined,
-    }
-  }, [width, height, landscape, device, zoom, animated])
+  const style = React.useMemo((): React.CSSProperties => ({
+    width: isLandscape ? height : width,
+    height: isLandscape ? width : height,
+    transform: zoom !== undefined ? `scale(${zoom})` : undefined,
+    transition: animated ? DEFAULTS.TRANSITION : undefined,
+  }), [width, height, isLandscape, zoom, animated])
+
+  if (!config) {
+    console.error(`MockFrame: unknown device "${String(device)}". Expected one of: ${DeviceNames.join(', ')}`)
+    return null
+  }
 
   // Build CSS class string for device styling
   const className = cx(
-    'mockframe', DeviceOptions[device].device, color, landscape && 'landscape', userClassName
+    'mockframe', config.device, color, isLandscape && 'landscape', userClassName
   )
 
   return (
-    <div className={className} {...divProps} style={{ ...style, ...userStyle }}>
+    <div ref={ref} className={className} {...divProps} style={{ ...style, ...userStyle }}>
       {/* Inner bezel layer */}
       <div className="inner" />
 
@@ -479,3 +468,5 @@ export const MockFrame = React.memo<MockFrameProps>(function MockFrame(props) {
     </div>
   )
 })
+
+export const MockFrame = React.memo(MockFrameBase)

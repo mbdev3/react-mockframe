@@ -1,3 +1,4 @@
+import { createRef } from 'react'
 import { expectTypeOf } from 'vitest'
 import { MockFrame } from '../MockFrame'
 import type { DeviceColor } from '../DeviceOptions'
@@ -7,6 +8,9 @@ expectTypeOf<DeviceColor<'iPhone 8'>>().toEqualTypeOf<'black' | 'silver' | 'gold
 expectTypeOf<DeviceColor<'iPhone X'>>().toEqualTypeOf<never>()
 expectTypeOf<DeviceColor<'iPhone 17'>>().toEqualTypeOf<
   'black' | 'white' | 'mist-blue' | 'sage' | 'lavender' | 'cosmic-orange' | 'deep-blue'
+>()
+expectTypeOf<DeviceColor<'iPhone 18 Pro'>>().toEqualTypeOf<
+  'black' | 'silver' | 'glacier' | 'burgundy' | 'gold' | 'natural-titanium'
 >()
 
 /* ---- Valid usages (must compile) ----
@@ -20,6 +24,8 @@ export const v4 = <MockFrame device="MacBook Pro 2020" />
 export const v5 = (
   <MockFrame device="iPhone 8" color="gold" className="x" style={{ opacity: 1 }} />
 )
+export const v6 = <MockFrame device="iPhone 18 Pro" color="natural-titanium" landscape />
+export const v7 = <MockFrame device="iPhone 17" color="sage" ref={createRef<HTMLDivElement>()} />
 
 /* ---- Invalid usages: each MUST error, or the @ts-expect-error fails the build ---- */
 // @ts-expect-error iPhone X has no color variants
@@ -32,3 +38,5 @@ export const x3 = <MockFrame device="iPhone 17" />
 export const x4 = <MockFrame device="MacBook Pro 2020" landscape />
 // @ts-expect-error MacBook Pro 2020 has no color variants
 export const x5 = <MockFrame device="MacBook Pro 2020" color="silver" />
+// @ts-expect-error 'cosmic-orange' is an iPhone 17 colour, not an iPhone 18 Pro one
+export const x6 = <MockFrame device="iPhone 18 Pro" color="cosmic-orange" />

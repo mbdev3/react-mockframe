@@ -19,7 +19,8 @@ MockFrame is a pnpm workspace monorepo with two packages.
 - `css/mockframe.css` — nested source CSS (adapted from Marvel devices.css).
 - `scripts/` — `build-css.js` (lightningcss → expanded + minified, with the
   nesting down-compiled for older browsers), `build-css-modules.js` (splits the
-  CSS into per-family bundles), `gen-readme.js` (copies the root README into the
+  CSS into per-family bundles; the build fails if a device in `DeviceOptions`
+  has no family or no CSS block), `gen-readme.js` (copies the root README into the
   package before publish).
 
 **Build:** `tsup` emits CJS + ESM + `.d.ts`; lightningcss emits the stylesheets.

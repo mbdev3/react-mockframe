@@ -14,4 +14,15 @@ if (fs.existsSync(rootReadmePath)) {
   console.log('No root README.md found, skipping copy');
 }
 
+// The MIT license (ours and Marvel's) must ship inside the npm tarball
+const rootLicensePath = path.join(__dirname, '../../../LICENSE');
+const packageLicensePath = path.join(__dirname, '../LICENSE');
+
+if (fs.existsSync(rootLicensePath)) {
+  fs.copyFileSync(rootLicensePath, packageLicensePath);
+  console.log('Copied root LICENSE to package directory');
+} else {
+  throw new Error('Root LICENSE not found; refusing to build a package without it');
+}
+
 console.log('README generation complete!');

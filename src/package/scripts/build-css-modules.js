@@ -5,104 +5,87 @@ const { transform } = require('lightningcss');
 const srcDir = path.join(__dirname, '../css');
 const distDir = path.join(__dirname, '../dist/styles');
 
-// Device family mappings
+// Device family mappings (values are the `device` CSS classes from src/DeviceOptions.ts)
 const deviceFamilies = {
-  iphones: ['iphone8', 'iphone8plus', 'iphone-x', 'iphone17'],
+  iphones: ['iphone8', 'iphone8plus', 'iphone-x', 'iphone17', 'iphone18pro'],
   android: ['pixel10', 'galaxy-s25'],
   tablets: ['ipad', 'ipad-pro'],
   laptops: ['macbook', 'macbook-pro'],
 };
+const allDevices = Object.values(deviceFamilies).flat();
 
-// Create a regex to match device blocks
-function createDeviceRegex(deviceClass) {
-  // Match &.devicename{ ... } including nested content
-  return new RegExp(`\\s*&\\.${deviceClass}\\s*\\{`, 'g');
+// Fail loudly when a device is added to DeviceOptions but not to a family:
+// otherwise its styles would be missing from every per-family bundle.
+const optionsSrc = fs.readFileSync(path.join(__dirname, '../src/DeviceOptions.ts'), 'utf8');
+const declared = [...optionsSrc.matchAll(/device:\s*'([^']+)'/g)].map((m) => m[1]);
+const orphans = declared.filter((d) => !allDevices.includes(d));
+if (orphans.length) {
+  throw new Error(`build-css-modules: add these device classes to a family: ${orphans.join(', ')}`);
 }
 
-// Extract a balanced block starting from a position after an opening brace
-function extractBlock(css, startPos) {
-  let depth = 1;
-  let pos = startPos;
+const classPattern = (deviceClass) =>
+  new RegExp(`\\.${deviceClass.replace(/[-]/g, '\\-')}(?![\\w-])`);
 
-  while (pos < css.length && depth > 0) {
-    if (css[pos] === '{') depth++;
-    else if (css[pos] === '}') depth--;
-    pos++;
-  }
+// Split the body of the root `.mockframe { ... }` rule into its top-level items
+// (declarations and nested rules, each with the comments that precede it).
+function parseRoot(css) {
+  const open = css.indexOf('{', css.indexOf('.mockframe'));
+  const items = [];
+  let i = open + 1;
+  let start = i;
+  let depth = 0;
 
-  return pos;
-}
-
-// Parse CSS and extract device blocks
-function parseDeviceBlocks(css) {
-  const blocks = {};
-  const deviceClasses = Object.values(deviceFamilies).flat();
-
-  for (const deviceClass of deviceClasses) {
-    const regex = new RegExp(`(\\s*&\\.${deviceClass}\\s*\\{)`, 'g');
-    let match;
-
-    while ((match = regex.exec(css)) !== null) {
-      const blockStart = match.index;
-      const contentStart = match.index + match[0].length;
-      const blockEnd = extractBlock(css, contentStart);
-
-      if (!blocks[deviceClass]) {
-        blocks[deviceClass] = [];
-      }
-
-      blocks[deviceClass].push({
-        start: blockStart,
-        end: blockEnd,
-        content: css.slice(blockStart, blockEnd),
-      });
+  while (i < css.length) {
+    if (css.startsWith('/*', i)) {
+      i = css.indexOf('*/', i) + 2;
+      continue;
     }
+    const ch = css[i];
+    if (ch === '{') {
+      depth++;
+    } else if (ch === '}') {
+      if (depth === 0) break; // closing brace of .mockframe
+      depth--;
+      if (depth === 0) {
+        items.push(css.slice(start, i + 1));
+        start = i + 1;
+      }
+    } else if (ch === ';' && depth === 0) {
+      items.push(css.slice(start, i + 1));
+      start = i + 1;
+    }
+    i++;
   }
 
-  return blocks;
+  return {
+    prefix: css.slice(0, open + 1),
+    items,
+    // whitespace/comments before the closing brace, the brace, and anything after it
+    suffix: css.slice(start),
+  };
 }
 
-// Extract base styles (everything before first device block and common elements)
-function extractBaseStyles(css, blocks) {
-  // Find the position of the first device block
-  let firstBlockStart = css.length;
-  for (const deviceBlocks of Object.values(blocks)) {
-    for (const block of deviceBlocks) {
-      if (block.start < firstBlockStart) {
-        firstBlockStart = block.start;
-      }
-    }
-  }
-
-  // Get base styles
-  return css.slice(0, firstBlockStart);
+// Device classes referenced by an item's selector (empty for shared items)
+function devicesOf(item) {
+  const brace = item.indexOf('{');
+  if (brace === -1) return [];
+  const selector = item.slice(0, brace).replace(/\/\*[\s\S]*?\*\//g, '');
+  return allDevices.filter((d) => classPattern(d).test(selector));
 }
 
-// Generate a family CSS file
-function generateFamilyCSS(baseStyles, blocks, familyDevices) {
-  let familyContent = baseStyles;
-
-  for (const deviceClass of familyDevices) {
-    if (blocks[deviceClass]) {
-      for (const block of blocks[deviceClass]) {
-        familyContent += block.content;
-      }
-    }
-  }
-
-  // Close the .mockframe block
-  familyContent += '\n}\n';
-
-  return familyContent;
+function generateFamilyCSS({ prefix, items, suffix }, familyDevices) {
+  const kept = items.filter((item) => {
+    const devices = devicesOf(item);
+    return devices.length === 0 || devices.some((d) => familyDevices.includes(d));
+  });
+  return prefix + kept.join('') + suffix;
 }
 
 // Process and write CSS file
 function processAndWriteCSS(name, css) {
-  // Process expanded version
-  const expanded = transform({
+  const options = {
     filename: `${name}.css`,
     code: Buffer.from(css),
-    minify: false,
     targets: {
       chrome: 95 << 16,
       firefox: 95 << 16,
@@ -111,55 +94,39 @@ function processAndWriteCSS(name, css) {
     drafts: {
       customMedia: true,
     },
-  });
+  };
 
+  const expanded = transform({ ...options, minify: false });
   fs.writeFileSync(path.join(distDir, `${name}.css`), expanded.code);
   console.log(`Built: ${name}.css`);
 
-  // Process minified version
-  const minified = transform({
-    filename: `${name}.css`,
-    code: Buffer.from(css),
-    minify: true,
-    targets: {
-      chrome: 95 << 16,
-      firefox: 95 << 16,
-      safari: 15 << 16,
-    },
-    drafts: {
-      customMedia: true,
-    },
-  });
-
+  const minified = transform({ ...options, minify: true });
   fs.writeFileSync(path.join(distDir, `${name}.min.css`), minified.code);
   console.log(`Built: ${name}.min.css`);
 }
 
-// Main build function
 function buildModularCSS() {
-  // Ensure dist directory exists
   if (!fs.existsSync(distDir)) {
     fs.mkdirSync(distDir, { recursive: true });
   }
 
-  // Read main CSS file
   const mainCSS = fs.readFileSync(path.join(srcDir, 'mockframe.css'), 'utf8');
+  const root = parseRoot(mainCSS);
 
-  // Parse device blocks
-  const blocks = parseDeviceBlocks(mainCSS);
+  // Every family device must have styles, or its bundle would silently ship without it
+  const styled = new Set(root.items.flatMap(devicesOf));
+  const unstyled = allDevices.filter((d) => !styled.has(d));
+  if (unstyled.length) {
+    throw new Error(`build-css-modules: no CSS block found for: ${unstyled.join(', ')}`);
+  }
 
-  // Extract base styles
-  const baseStyles = extractBaseStyles(mainCSS, blocks);
-
-  // Generate family-specific CSS files
   for (const [familyName, familyDevices] of Object.entries(deviceFamilies)) {
-    const familyCSS = generateFamilyCSS(baseStyles, blocks, familyDevices);
-    processAndWriteCSS(`mockframe-${familyName}`, familyCSS);
+    processAndWriteCSS(`mockframe-${familyName}`, generateFamilyCSS(root, familyDevices));
   }
 
   console.log('\nModular CSS build complete!');
   console.log('Available bundles:');
-  console.log('  - mockframe-iphones.css (iPhone 8, 8 Plus, X, 17)');
+  console.log('  - mockframe-iphones.css (iPhone 8, 8 Plus, X, 17, 18 Pro)');
   console.log('  - mockframe-android.css (Pixel 10, Galaxy S25)');
   console.log('  - mockframe-tablets.css (iPad Mini, iPad Pro)');
   console.log('  - mockframe-laptops.css (MacBook Pro 2020, MacBook Pro)');
