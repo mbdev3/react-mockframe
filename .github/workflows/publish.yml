@@ -5,6 +5,8 @@ on:
 
 permissions:
   contents: read
+  # npm trusted publishing (OIDC): no long-lived token, provenance included
+  id-token: write
 
 jobs:
   publish:
@@ -17,9 +19,11 @@ jobs:
           version: 9
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           registry-url: https://registry.npmjs.org
           cache: pnpm
+      # Trusted publishing needs npm >= 11.5.1
+      - run: npm install -g npm@^11.5.1
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm --filter react-mockframe test
@@ -27,4 +31,5 @@ jobs:
       - run: npm publish --access public
         working-directory: src/package
         env:
+          # Fallback when no trusted publisher is configured on npmjs.com
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
